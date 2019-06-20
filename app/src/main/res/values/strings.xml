@@ -1,0 +1,39 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">MiVecindarioNuevo</string>
+    <string name="title_activity_inicio_sesion">InicioSesion</string>
+    <string name="textview">TextView</string>
+    <string name="Nombre">Nombre</string>
+    <string name="Apellido">Apellido</string>
+    <string name="Correo">Correo</string>
+    <string name="Password">Password</string>
+    <string name="Contraseña">Contraseña</string>
+    <string name="title_activity_iniciar_sesion">IniciarSesion</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="Telefono">Telefono</string>
+    <string name="Direccion">Direccion</string>
+    <string name="Tipo">Tipo</string>
+    <string name="Usuarios">Usuarios</string>
+    <string name="Comentario">Comentario</string>
+    <string name="Usuario">Usuario</string>
+    <string name="Vecindario">Vecindario</string>
+    <string name="modificar_mis_datos">Modificar mis datos</string>
+    <string name="ingresar_evento">Ingresar evento</string>
+    <string name="eventos">Eventos</string>
+    <string name="Fecha">Fecha</string>
+    <string name="participar">Participar</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="modificar_hogar">Modificar Hogar</string>
+    <string name="lista_de_vecindarios">Lista de Vecindarios</string>
+    <string name="lista_de_hogares">Lista de Hogares</string>>
+    <string name="asunto">Asunto</string>
+    <string name="enviar">Enviar</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="vecindarios">Vecindarios</string>
+    <string name="hogares">Hogares</string>
+    <string name="mapas">Mapas</string>
+    <string name="administrar">Administrar</string>
+    <string name="contacto">Contacto</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+
+
+</resources>

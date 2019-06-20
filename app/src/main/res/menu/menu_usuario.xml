@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_session_out"
+        android:titleCondensed="CerrarSesion"
+        android:id="@+id/cerrarSesion"
+        android:title="Cerrar sesion"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/editarHogar"
+        android:title="Editar hogar"
+        />
+    <item
+        android:id="@+id/datosUsuario"
+        android:title="Mis datos"
+        />
+    <item
+        android:id="@+id/verVecindario"
+        android:title="Ver vecindario"
+        />
+</menu>

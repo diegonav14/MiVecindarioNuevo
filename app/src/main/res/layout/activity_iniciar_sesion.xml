@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_inicio"
+    android:orientation="vertical"
+    tools:context="iniciarSesion">
+
+
+    <EditText
+        android:id="@+id/et_correo"
+        android:layout_width="239dp"
+        android:layout_height="51dp"
+        android:ems="15"
+        android:hint="@string/Correo"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:paddingTop="15dp"
+        android:textColor="#FC070707"
+        android:textSize="25sp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="320dp" />
+
+
+    <EditText
+        android:id="@+id/et_pass"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:ems="15"
+        android:hint="@string/Contraseña"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:paddingTop="15dp"
+        android:textColor="#050505"
+        android:textSize="25sp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="404dp" />
+
+
+    <Button
+        android:id="@+id/btnIniciarSesion"
+        android:layout_width="179dp"
+        android:layout_height="56dp"
+        android:background="@drawable/boton_estilo"
+        android:onClick="IniciarSesion"
+        android:text="@string/iniciar_sesion"
+        android:textColor="#012B02"
+        android:textColorLink="#00BCD4"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="477dp" />
+
+    <Button
+        android:id="@+id/btnContacto"
+        android:layout_width="121dp"
+        android:layout_height="48dp"
+        android:background="@drawable/boton_estilo"
+        android:onClick="irContacto"
+        android:text="@string/contacto"
+        android:textColor="#012B02"
+        android:textSize="17sp"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="554dp" />
+
+    <ImageView
+        android:id="@+id/iv_logoinicio"
+        android:layout_width="276dp"
+        android:layout_height="253dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/logo_estilo"
+        android:padding="46dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/start" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
