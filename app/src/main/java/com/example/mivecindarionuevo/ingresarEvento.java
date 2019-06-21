@@ -247,7 +247,7 @@ public class ingresarEvento extends AppCompatActivity {
         switch (item.getItemId()){
 
             case R.id.verVecindario:{
-                Intent intent = new Intent(this,verVecindario.class);
+                Intent intent = new Intent(this,MapsActivity.class);
                 startActivity(intent);
                 break;
             }
