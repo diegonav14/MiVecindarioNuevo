@@ -59,7 +59,9 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return Nombre;
+
+        String NombreApellido = getNombre()+" "+getApellido();
+        return NombreApellido;
     }
 
     public String getPassword() {

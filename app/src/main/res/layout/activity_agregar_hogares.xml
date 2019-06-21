@@ -71,17 +71,21 @@
 
     <Spinner
         android:id="@+id/spVecindarioHogar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
+        android:layout_width="347dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:minWidth="20sp"
+        android:scrollbarSize="30dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
         android:textColor="#03521B"
-        app:layout_constraintTop_toBottomOf="@id/et_comentarioHogar"
-        tools:layout_editor_absoluteX="62dp"
-        android:layout_marginLeft="200dp"
-        android:layout_marginRight="30dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_comentarioHogar" />
 
 
     <TextView

@@ -79,8 +79,6 @@ public class ingresarEvento extends AppCompatActivity {
         txt_usuarioEvento = findViewById(R.id.txt_usuarioEventoSeleccionado);
         txt_fechaEvento = findViewById(R.id.txt_fechaEventoSeleccionado);
 
-
-
         ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,R.array.TipoEvento, android.R.layout.simple_spinner_dropdown_item);
 
         tipoEvento.setAdapter(adapterSpinner);
@@ -97,21 +95,19 @@ public class ingresarEvento extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                cargarPreferencias();
                 eventoSeleccionado = (Evento) parent.getItemAtPosition(position);
                 txt_comentarioEvento.setText(eventoSeleccionado.getComentario());
                 txt_tipoEvento.setText(eventoSeleccionado.getTipo());
                 txt_fechaEvento.setText(eventoSeleccionado.getFecha());
                 txt_usuarioEvento.setText(eventoSeleccionado.getUsuario().getNombre()+" "+eventoSeleccionado.getUsuario().getApellido());
+                arrayAdapteAsistente = new ArrayAdapter<>(ingresarEvento.this, android.R.layout.simple_list_item_1,eventoSeleccionado.getListaAsistentes());
+                lv_asistentes.setAdapter(arrayAdapteAsistente);
+                btnAsistir.setVisibility(View.VISIBLE);
 
                 for (int i = 0 ; i < eventoSeleccionado.getListaAsistentes().size(); i++){
                     if (eventoSeleccionado.getListaAsistentes().get(i).getNombre().equals(nmUsuario) && eventoSeleccionado.getListaAsistentes().get(i).getApellido().equals(apUsuario)){
-                        arrayAdapteAsistente = new ArrayAdapter<Usuario>(ingresarEvento.this, android.R.layout.simple_list_item_1,eventoSeleccionado.getListaAsistentes());
-                        lv_asistentes.setAdapter(arrayAdapteAsistente);
                         btnAsistir.setVisibility(View.GONE);
-                    }else{
-                        btnAsistir.setVisibility(View.VISIBLE);
-                        arrayAdapteAsistente = new ArrayAdapter<Usuario>(ingresarEvento.this, android.R.layout.simple_list_item_1,eventoSeleccionado.getListaAsistentes());
-                        lv_asistentes.setAdapter(arrayAdapteAsistente);
                     }
                 }
             }
@@ -128,9 +124,9 @@ public class ingresarEvento extends AppCompatActivity {
                         eventoSeleccionado.getListaAsistentes().add(u);
                     }
                     databaseReference.child("Evento").child(eventoSeleccionado.getUid()).setValue(eventoSeleccionado);
-                    arrayAdapteAsistente = new ArrayAdapter<Usuario>(ingresarEvento.this, android.R.layout.simple_list_item_1,eventoSeleccionado.getListaAsistentes());
+                    arrayAdapteAsistente = new ArrayAdapter<>(ingresarEvento.this, android.R.layout.simple_list_item_1,eventoSeleccionado.getListaAsistentes());
                     lv_asistentes.setAdapter(arrayAdapteAsistente);
-                    btnAsistir.setVisibility(View.INVISIBLE);
+                    btnAsistir.setVisibility(View.GONE);
                 }
             }
 

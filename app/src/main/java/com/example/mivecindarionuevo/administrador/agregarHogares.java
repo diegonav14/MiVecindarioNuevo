@@ -85,7 +85,8 @@ public class agregarHogares extends AppCompatActivity {
                 dirHogar.setText(hogarSeleccionado.getDireccion());
                 nomHogar.setText(hogarSeleccionado.getNombre());
                 comHogar.setText(hogarSeleccionado.getComentario());
-                for (int i = 0; i <= spinnerVecindario.getCount(); i++){
+
+                for (int i = 0; i <= spinnerVecindario.getCount() ; i++){
                     if (spinnerVecindario.getItemAtPosition(i).toString().equals(hogarSeleccionado.getVecindario().getNombre())){
                         spinnerVecindario.setSelection(i);
                     }
@@ -207,7 +208,7 @@ public class agregarHogares extends AppCompatActivity {
                         h.setComentario(comHogar.getText().toString().trim());
                         for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                             Vecindario v = objSnapshot.getValue(Vecindario.class);
-                            if (spinnerVecindario.getSelectedItem().toString().equals(h.getNombre())){
+                            if (spinnerVecindario.getSelectedItem().toString().equals(v.getNombre().trim())){
                                 h.setVecindario(v);
                             }
                         }
