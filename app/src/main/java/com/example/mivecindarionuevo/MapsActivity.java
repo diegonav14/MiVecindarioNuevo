@@ -1,8 +1,10 @@
 package com.example.mivecindarionuevo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -31,6 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     String nmUsuario, apUsuario;
 
+
     Usuario usuarioActual;
 
 
@@ -46,7 +49,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         cargarPreferencias();
         inicializarFirebase();
 
+
     }
+
+
 
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -59,7 +65,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         apUsuario = preferencias.getString("apellidoUsuario","NoSesion");
     }
 
+    public void ingresarEvento (View v){
+        Intent intent = new Intent(this,ingresarEvento.class);
+        startActivity(intent);
 
+    }
+
+    public void misDatos (View v){
+        Intent intent = new Intent(this,datosUsuario.class);
+        startActivity(intent);
+
+    }
+
+    public void miHogar (View v){
+        Intent intent = new Intent(this,editarHogar.class);
+        startActivity(intent);
+
+    }
+
+    public void cerrarSesion (View v){
+        SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferecias.edit();
+        editor.clear();
+        editor.apply();
+        Intent intent = new Intent(this,iniciarSesion.class);
+        startActivity(intent);
+        finish();
+    }
 
 
     /**

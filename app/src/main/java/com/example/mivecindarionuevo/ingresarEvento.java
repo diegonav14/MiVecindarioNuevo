@@ -249,18 +249,21 @@ public class ingresarEvento extends AppCompatActivity {
             case R.id.verVecindario:{
                 Intent intent = new Intent(this,MapsActivity.class);
                 startActivity(intent);
+
                 break;
             }
 
             case R.id.editarHogar:{
                 Intent intent = new Intent(this,editarHogar.class);
                 startActivity(intent);
+
                 break;
             }
 
             case R.id.datosUsuario:{
                 Intent intent = new Intent(this,datosUsuario.class);
                 startActivity(intent);
+
                 break;
             }
 

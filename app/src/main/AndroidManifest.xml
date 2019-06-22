@@ -42,7 +42,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="landscape"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -51,17 +52,26 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <activity android:name=".contacto" />
-        <activity android:name=".verVecindario" />
-        <activity android:name=".ingresarEvento" />
-        <activity android:name=".editarHogar" />
-        <activity android:name=".datosUsuario" />
-        <activity android:name=".administrador.inicioAdmin" />
-        <activity android:name=".administrador.ingresarVecindario" />
-        <activity android:name=".administrador.ingresarUsuarios" />
-        <activity android:name=".administrador.ingresarMapaVecindario" />
-        <activity android:name=".administrador.agregarHogares" />
-        <activity android:name=".iniciarSesion">
+        <activity android:name=".contacto"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ingresarEvento"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".editarHogar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".datosUsuario"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".administrador.inicioAdmin"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".administrador.ingresarVecindario"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".administrador.ingresarUsuarios"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".administrador.ingresarMapaVecindario"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".administrador.agregarHogares"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".iniciarSesion"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

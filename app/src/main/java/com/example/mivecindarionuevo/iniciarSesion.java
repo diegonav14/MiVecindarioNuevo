@@ -53,7 +53,7 @@ public class iniciarSesion extends AppCompatActivity {
             startActivity(intent);
             finish();
         }else if(preferencias.contains("nombreUsuario") && preferencias.contains("apellidoUsuario")){
-            Intent intent = new Intent(this, ingresarEvento.class);
+            Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent);
             finish();
         }
@@ -127,7 +127,7 @@ public class iniciarSesion extends AppCompatActivity {
 
 
                     if (correo.equals(user.getCorreo()) && pass.equals(user.getPassword())) {
-                        Intent intent = new Intent(iniciarSesion.this, ingresarEvento.class);
+                        Intent intent = new Intent(iniciarSesion.this, MapsActivity.class);
                         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferencias.edit();
                         editor.putString("nombreUsuario", user.getNombre());

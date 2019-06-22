@@ -86,7 +86,7 @@ public class inicioAdmin extends AppCompatActivity {
 
         switch (item.getItemId()){
 
-            case R.id.cerrarSesionAdmin:{
+            case R.id.cerrarSesion:{
                 SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencias.edit();
                 editor.clear();

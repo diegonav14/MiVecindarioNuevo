@@ -4,7 +4,7 @@
     <item
         android:icon="@drawable/ic_session_out"
         android:titleCondensed="CerrarSesion"
-        android:id="@+id/cerrarSesionAdmin"
+        android:id="@+id/cerrarSesion"
         android:title="CerrarSesion"
         app:showAsAction="always"
         />

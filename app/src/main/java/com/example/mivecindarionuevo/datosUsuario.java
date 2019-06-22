@@ -124,20 +124,23 @@ public class datosUsuario extends AppCompatActivity {
         switch (item.getItemId()){
 
             case R.id.verVecindario:{
-                Intent intent = new Intent(this,verVecindario.class);
+                Intent intent = new Intent(this,MapsActivity.class);
                 startActivity(intent);
+
                 break;
             }
 
             case R.id.editarHogar:{
                 Intent intent = new Intent(this,editarHogar.class);
                 startActivity(intent);
+
                 break;
             }
 
             case R.id.datosUsuario:{
                 Intent intent = new Intent(this,datosUsuario.class);
                 startActivity(intent);
+
                 break;
             }
 
