@@ -144,6 +144,12 @@ public class datosUsuario extends AppCompatActivity {
                 break;
             }
 
+            case R.id.ingresarEventos:{
+                Intent intent = new Intent(this,ingresarEvento.class);
+                startActivity(intent);
+                break;
+            }
+
             case R.id.cerrarSesion:{
                 SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferecias.edit();

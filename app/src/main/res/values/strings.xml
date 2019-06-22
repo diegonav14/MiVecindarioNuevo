@@ -37,6 +37,7 @@
     <string name="latitud_y_longitud">Latitud y Longitud</string>
     <string name="latitud">Latitud</string>
     <string name="longitud">Longitud</string>
+    <string name="miembros_de_mi_hogar">Miembros de mi hogar</string>
 
 
 </resources>

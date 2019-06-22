@@ -11,14 +11,19 @@
 
     <item
         android:id="@+id/editarHogar"
-        android:title="Editar hogar"
+        android:title="Mi Hogar"
         />
     <item
         android:id="@+id/datosUsuario"
-        android:title="Mis datos"
+        android:title="Mis Datos"
         />
     <item
         android:id="@+id/verVecindario"
-        android:title="Ver vecindario"
+        android:title="Mi vecindario"
+        />
+
+    <item
+        android:id="@+id/ingresarEventos"
+        android:title="Eventos"
         />
 </menu>

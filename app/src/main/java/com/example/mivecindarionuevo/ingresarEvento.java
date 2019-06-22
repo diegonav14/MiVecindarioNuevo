@@ -35,32 +35,30 @@ import java.util.UUID;
 
 public class ingresarEvento extends AppCompatActivity {
 
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
-    String tipoUsuario,nmUsuario,apUsuario;
+    private String tipoUsuario,nmUsuario,apUsuario;
 
-    EditText comentarioEvento,fechaEvento;
+    private EditText comentarioEvento,fechaEvento;
 
-    Button btnEvento,btnAsistir;
+    private Button btnEvento,btnAsistir;
 
-    ListView lv_Eventos,lv_asistentes;
-
+    private ListView lv_Eventos,lv_asistentes;
 
     private List<Evento> listaEventos = new ArrayList<Evento>();
     private  List<Usuario> listaAsistentes = new ArrayList<Usuario>();
-    ArrayAdapter<Evento> arrayAdapteEvento;
+    private ArrayAdapter<Evento> arrayAdapteEvento;
 
+    private ArrayAdapter<Usuario> arrayAdapteAsistente;
 
-    ArrayAdapter<Usuario> arrayAdapteAsistente;
+    private Spinner tipoEvento;
 
-    Spinner tipoEvento;
+    private TextView txt_tipoEvento,txt_comentarioEvento,txt_usuarioEvento,txt_fechaEvento;
 
-    TextView txt_tipoEvento,txt_comentarioEvento,txt_usuarioEvento,txt_fechaEvento;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-
-    Evento eventoSeleccionado;
+    private Evento eventoSeleccionado;
 
 
     @Override
@@ -248,6 +246,13 @@ public class ingresarEvento extends AppCompatActivity {
 
             case R.id.verVecindario:{
                 Intent intent = new Intent(this,MapsActivity.class);
+                startActivity(intent);
+
+                break;
+            }
+
+            case R.id.ingresarEventos:{
+                Intent intent = new Intent(this,ingresarEvento.class);
                 startActivity(intent);
 
                 break;

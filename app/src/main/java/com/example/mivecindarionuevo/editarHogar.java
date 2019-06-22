@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class editarHogar extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -29,16 +35,28 @@ public class editarHogar extends AppCompatActivity {
 
     String nmUsuario,apUsuario;
 
+    ListView lv_miembrosHogar;
+
+    TextView txt_nombreHogar, txt_direccionHogar, txt_comentarioHogar;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
+    private List<Usuario> listaMiembros = new ArrayList<Usuario>();
+
+    private ArrayAdapter<Usuario> arrayAdapteMiembro;
+
+    Usuario usuarioActual;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_hogar);
         inicializarFirebase();
 
-
+        lv_miembrosHogar=findViewById(R.id.lv_miembrosHogar);
+        txt_comentarioHogar=findViewById(R.id.txt_nombreHogar);
+        txt_direccionHogar=findViewById(R.id.txt_direccionHogar);
+        txt_nombreHogar=findViewById(R.id.txt_comentarioHogar);
         comentarioHogar = findViewById(R.id.et_comentarioUsuarioHogar);
         direccionHogar = findViewById(R.id.et_direccionHogarUsuario);
         nombreHogar = findViewById(R.id.et_nombreUsuarioHogar);
@@ -47,7 +65,7 @@ public class editarHogar extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         cargarPreferencias();
-
+        listarDatos();
     }
 
     public void modificarHogar( View v){
@@ -76,6 +94,8 @@ public class editarHogar extends AppCompatActivity {
                             h.setDireccion(direccion);
                             h.setComentario(comentario);
                             h.setUid(hogarUsuario);
+                            h.setLatitud(u.getHogar().getLatitud());
+                            h.setLongitud(u.getHogar().getLongitud());
                             h.setVecindario(u.getHogar().getVecindario());
                         }
                     }
@@ -93,6 +113,50 @@ public class editarHogar extends AppCompatActivity {
         });
     }
 
+    private void listarDatos() {
+
+        databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                    Usuario u = objSnapshot.getValue(Usuario.class);
+                    if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)){
+                        usuarioActual=u;
+                        txt_nombreHogar.setText(usuarioActual.getHogar().getNombre());
+                        txt_comentarioHogar.setText(usuarioActual.getHogar().getComentario());
+                        txt_direccionHogar.setText(usuarioActual.getHogar().getDireccion());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listaMiembros.clear();
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                    Usuario u = objSnapshot.getValue(Usuario.class);
+                    if (usuarioActual.getHogar().getUid().equals(u.getHogar().getUid())){
+                        listaMiembros.add(u);
+                        arrayAdapteMiembro = new ArrayAdapter<Usuario>(editarHogar.this, android.R.layout.simple_list_item_1, listaMiembros);
+                        lv_miembrosHogar.setAdapter(arrayAdapteMiembro);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,6 +171,13 @@ public class editarHogar extends AppCompatActivity {
 
             case R.id.verVecindario:{
                 Intent intent = new Intent(this,MapsActivity.class);
+                startActivity(intent);
+
+                break;
+            }
+
+            case R.id.ingresarEventos:{
+                Intent intent = new Intent(this,ingresarEvento.class);
                 startActivity(intent);
 
                 break;

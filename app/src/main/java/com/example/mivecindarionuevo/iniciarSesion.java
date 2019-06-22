@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class iniciarSesion extends AppCompatActivity {
 
     EditText editTextCorreo, editTextPass;
-    Button btn_Contacto;
+
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -65,38 +64,18 @@ public class iniciarSesion extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
     }
 
-    private void validacion() {
-
-        String correo = editTextCorreo.getText().toString();
-        String pass = editTextPass.getText().toString();
-
-
-        if (correo.equals("")) {
-            editTextCorreo.setError("Requerido");
-        } else if (pass.equals("")){
-            editTextPass.setError("Requerido");
-        }
-
-
-    }
-
     public void IniciarSesion (View v) {
 
         databaseReference.child("Administrador").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if (editTextCorreo.getText().equals("") || editTextPass.getText().equals("")){
-                    validacion();
-                }
+                String correoAdmin = editTextCorreo.getText().toString();
+                String passAdmin = editTextPass.getText().toString();
 
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
-
                     Administrador admin = objSnapshot.getValue(Administrador.class);
-                    String correoAdmin = editTextCorreo.getText().toString();
-                    String passAdmin = editTextPass.getText().toString();
-
-
+                    editTextPass.setError(null);
+                    editTextCorreo.setError(null);
                     if (correoAdmin.equals(admin.getCorreo()) && passAdmin.equals(admin.getPassword())){
                         Intent intentAdmin = new Intent(iniciarSesion.this, com.example.mivecindarionuevo.administrador.inicioAdmin.class);
                         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -106,9 +85,14 @@ public class iniciarSesion extends AppCompatActivity {
                         editor.commit();
                         startActivity(intentAdmin);
                         finish();
+                    }else{
+                        editTextCorreo.setError("Correo incorrecto");
+                        editTextPass.setError("Contraseña incorrecta");
                     }
-
                 }
+                editTextPass.setError(null);
+                editTextCorreo.setError(null);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -119,13 +103,14 @@ public class iniciarSesion extends AppCompatActivity {
         databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String correo = editTextCorreo.getText().toString();
+                String pass = editTextPass.getText().toString();
+                Usuario user;
 
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
-                    Usuario user = objSnapshot.getValue(Usuario.class);
-                    String correo = editTextCorreo.getText().toString();
-                    String pass = editTextPass.getText().toString();
-
-
+                        user = objSnapshot.getValue(Usuario.class);
+                        editTextCorreo.setError(null);
+                        editTextPass.setError(null);
                     if (correo.equals(user.getCorreo()) && pass.equals(user.getPassword())) {
                         Intent intent = new Intent(iniciarSesion.this, MapsActivity.class);
                         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -136,19 +121,17 @@ public class iniciarSesion extends AppCompatActivity {
                         editor.commit();
                         startActivity(intent);
                         finish();
+                    }else{
+                        editTextCorreo.setError("Correo incorrecto");
+                        editTextPass.setError("Contraseña incorrecta");
                     }
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
-
-
     }
 
     public void irContacto(View v){

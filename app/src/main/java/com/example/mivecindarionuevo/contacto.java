@@ -1,8 +1,8 @@
 package com.example.mivecindarionuevo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class contacto extends AppCompatActivity {
 
@@ -11,4 +11,6 @@ public class contacto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacto);
     }
+
+
 }
