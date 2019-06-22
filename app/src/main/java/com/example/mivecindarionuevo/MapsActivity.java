@@ -1,15 +1,19 @@
 package com.example.mivecindarionuevo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.mivecindarionuevo.modelos.Hogar;
+import com.example.mivecindarionuevo.modelos.Usuario;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +29,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
+    String nmUsuario, apUsuario;
+
+    Usuario usuarioActual;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,13 +43,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        cargarPreferencias();
         inicializarFirebase();
+
     }
 
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
+
+    private void cargarPreferencias() {
+        SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        nmUsuario = preferencias.getString("nombreUsuario","NoSesion");
+        apUsuario = preferencias.getString("apellidoUsuario","NoSesion");
+    }
+
+
+
 
     /**
      * Manipulates the map once available.
@@ -65,27 +85,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
 
-        databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
-                    Hogar h = objSnapshot.getValue(Hogar.class);
-                    double latitud = Double.parseDouble(h.getLatitud());
-                    double longitud = Double.parseDouble(h.getLongitud());
-                    LatLng padreHurtado = new LatLng(latitud,longitud);
-                    mMap.addMarker(new MarkerOptions().position(padreHurtado).title(h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                    Usuario u = objSnapshot.getValue(Usuario.class);
+                    if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)){
+                            usuarioActual = u;
+                    }
                 }
 
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
-
         });
 
-    }
+        databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                    Hogar h = objSnapshot.getValue(Hogar.class);
 
+                    if (usuarioActual.getHogar().getVecindario().getNombre().equals(h.getVecindario().getNombre())){
+
+                        double latitud = Double.parseDouble(h.getLatitud());
+                        double longitud = Double.parseDouble(h.getLongitud());
+                        LatLng padreHurtado = new LatLng(latitud,longitud);
+                        mMap.addMarker(new MarkerOptions().position(padreHurtado).title(h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casa_round)));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }
 
 }
