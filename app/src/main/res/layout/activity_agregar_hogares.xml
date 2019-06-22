@@ -1,123 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_inicio"
     android:orientation="vertical"
-    tools:context=".administrador.agregarHogares">
+    tools:context=".administrador.agregarHogares"
+    tools:ignore="ScrollViewCount">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
-
-
-    <EditText
-        android:id="@+id/et_nombreHogar"
+        app:layout_constraintBottom_toTopOf="@id/scvHogares"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:hint="@string/Nombre"
-        android:textColorHint="#03521B"
-        android:textSize="20sp"
-        android:inputType="textPersonName"
-        android:paddingTop="15dp"
-        app:layout_constraintTop_toBottomOf="@id/lv_datosHogar"
-        tools:layout_editor_absoluteX="16dp"
-        android:importantForAutofill="no" />
+        android:layout_height="58dp" />
 
-
-    <EditText
-        android:id="@+id/et_direccionHogar"
+    <ScrollView
+        android:id="@+id/scvHogares"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:ems="10"
-        android:textColorHint="#03521B"
-        android:textSize="20sp"
-        android:hint="@string/Direccion"
-        android:inputType="textPersonName"
-        android:paddingTop="15dp"
-        app:layout_constraintTop_toBottomOf="@id/et_nombreHogar"
-        tools:layout_editor_absoluteX="50dp"
-        android:importantForAutofill="no" />
-
-
-    <EditText
-        android:id="@+id/et_comentarioHogar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:ems="10"
-        android:textColorHint="#03521B"
-        android:textSize="20sp"
-        android:hint="@string/Comentario"
-        android:inputType="textPersonName"
-        android:paddingTop="15dp"
-        app:layout_constraintTop_toBottomOf="@id/et_direccionHogar"
-        tools:layout_editor_absoluteX="0dp"
-        android:importantForAutofill="no" />
-
-
-    <Spinner
-        android:id="@+id/spVecindarioHogar"
-        android:layout_width="347dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:minWidth="20sp"
-        android:scrollbarSize="30dp"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbars="vertical"
-        android:textColor="#03521B"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_comentarioHogar" />
-
-
-    <TextView
-        android:id="@+id/txt_listaHogares"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/lista_de_hogares"
-        android:textColor="#03521B"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteX="0dp">
 
-    <ListView
-        android:id="@+id/lv_datosHogar"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="30dp"
-        android:background="#C3498820"
-        android:textColor="#03521B"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_listaHogares"
-        tools:ignore="MissingConstraints" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctHogares"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txt_listaHogares"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/lista_de_hogares"
+                android:textColor="#03521B"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ctHogares"
+                tools:ignore="MissingConstraints" />
+
+            <ListView
+                android:id="@+id/lv_datosHogar"
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="#C3499E12"
+                android:textColor="#03521B"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_listaHogares"
+                tools:ignore="MissingConstraints" />
+
+
+            <EditText
+                android:id="@+id/et_nombreHogar"
+                android:layout_width="240dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:ems="10"
+                android:hint="@string/Nombre"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textColorHint="#03521B"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lv_datosHogar"
+                tools:ignore="MissingConstraints" />
+
+
+            <EditText
+                android:id="@+id/et_direccionHogar"
+                android:layout_width="238dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:ems="10"
+                android:hint="@string/Direccion"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColorHint="#03521B"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_nombreHogar"
+                tools:ignore="MissingConstraints" />
+
+
+            <EditText
+                android:id="@+id/et_comentarioHogar"
+                android:layout_width="238dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:ems="10"
+                android:hint="@string/Comentario"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColorHint="#03521B"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_direccionHogar"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/et_latitudHogar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:ems="10"
+                android:hint="@string/latitud"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textColorHint="#03521B"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_comentarioHogar"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/et_longitudHogar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:ems="10"
+                android:hint="@string/longitud"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textColorHint="#03521B"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_latitudHogar"
+                tools:ignore="MissingConstraints" />
+
+
+            <Spinner
+                android:id="@+id/spVecindarioHogar"
+                android:layout_width="240dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:scrollbarSize="30dp"
+                android:scrollbarStyle="outsideInset"
+                android:scrollbars="vertical"
+                android:textColor="#03521B"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_longitudHogar"
+                tools:ignore="MissingConstraints" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

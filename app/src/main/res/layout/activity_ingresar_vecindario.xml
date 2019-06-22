@@ -14,68 +14,115 @@
         layout="@layout/toolbar"
         />
 
-
-    <EditText
-        android:id="@+id/et_nombreVecindario"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:hint="@string/Nombre"
-        android:textColorHint="#03521B"
-        android:textSize="20sp"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:paddingTop="15dp"
-        app:layout_constraintTop_toBottomOf="@id/lv_datosVecindario"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:layout_editor_absoluteX="0dp">
 
-    <EditText
-        android:id="@+id/et_direccionVecindario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:hint="@string/Direccion"
-        android:textColorHint="#03521B"
-        android:textSize="20sp"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:paddingTop="15dp"
-        app:layout_constraintTop_toBottomOf="@id/et_nombreVecindario"
-        tools:layout_editor_absoluteX="38dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txt_listaVecindarios"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/lista_de_vecindarios"
-        android:textColor="#03521B"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            <EditText
+                android:id="@+id/et_nombreVecindario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/Nombre"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textColorHint="#03521B"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/lv_datosVecindario"
+                tools:layout_editor_absoluteX="0dp" />
 
-    <ListView
-        android:id="@+id/lv_datosVecindario"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="30dp"
-        android:background="#C3498820"
-        android:textColor="#03521B"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_listaVecindarios" />
+            <EditText
+                android:id="@+id/et_direccionVecindario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/Direccion"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textColorHint="#03521B"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/et_nombreVecindario"
+                tools:layout_editor_absoluteX="38dp" />
+
+            <EditText
+                android:id="@+id/et_latitudVecindario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/latitud"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textColorHint="#03521B"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/et_direccionVecindario"
+                tools:layout_editor_absoluteX="38dp" />
+
+            <EditText
+                android:id="@+id/et_longitudVecindario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/longitud"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textColorHint="#03521B"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/et_latitudVecindario"
+                tools:layout_editor_absoluteX="38dp" />
+
+            <TextView
+                android:id="@+id/txt_listaVecindarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/lista_de_vecindarios"
+                android:textColor="#03521B"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+
+            <ListView
+                android:id="@+id/lv_datosVecindario"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:background="#C3498820"
+                android:textColor="#03521B"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_listaVecindarios" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

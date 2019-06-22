@@ -34,6 +34,9 @@
     <string name="administrar">Administrar</string>
     <string name="contacto">Contacto</string>
     <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="latitud_y_longitud">Latitud y Longitud</string>
+    <string name="latitud">Latitud</string>
+    <string name="longitud">Longitud</string>
 
 
 </resources>

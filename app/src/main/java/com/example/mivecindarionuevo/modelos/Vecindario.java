@@ -4,6 +4,8 @@ public class Vecindario {
 
     private String uid;
     private String nombre;
+    private String latitud;
+    private String longitud;
     private String direccion;
 
 
@@ -30,6 +32,22 @@ public class Vecindario {
 
     public String getUid() {
         return uid;
+    }
+
+    public String getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
     }
 
     public void setUid(String uid) {

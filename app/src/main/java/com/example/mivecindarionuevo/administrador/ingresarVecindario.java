@@ -34,7 +34,7 @@ public class ingresarVecindario extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    EditText nombreVec, direccionVec;
+    EditText nombreVec, direccionVec,latitudVec, longitudVec;
 
     Vecindario vecindarioSeleccionado;
 
@@ -56,6 +56,8 @@ public class ingresarVecindario extends AppCompatActivity {
 
         nombreVec = findViewById(R.id.et_nombreVecindario);
         direccionVec = findViewById(R.id.et_direccionVecindario);
+        latitudVec= findViewById(R.id.et_latitudVecindario);
+        longitudVec= findViewById(R.id.et_longitudVecindario);
 
         cargarPreferencias();
         inicializarFirebase();
@@ -69,6 +71,8 @@ public class ingresarVecindario extends AppCompatActivity {
                 vecindarioSeleccionado = (Vecindario) parent.getItemAtPosition(position);
                 nombreVec.setText(vecindarioSeleccionado.getNombre());
                 direccionVec.setText(vecindarioSeleccionado.getDireccion());
+                latitudVec.setText(vecindarioSeleccionado.getLatitud());
+                longitudVec.setText(vecindarioSeleccionado.getLongitud());
             }
         });
 
@@ -103,7 +107,6 @@ public class ingresarVecindario extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
-        getSupportActionBar().setTitle("MiVecindario");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -112,14 +115,15 @@ public class ingresarVecindario extends AppCompatActivity {
 
         String nombre= nombreVec.getText().toString();
         String direccion= direccionVec.getText().toString();
-
+        String latitud = latitudVec.getText().toString();
+        String longitud = longitudVec.getText().toString();
 
 
         switch (item.getItemId()){
 
             case R.id.icon_add:{
 
-                if (nombre.equals("") || direccion.equals("")){
+                if (nombre.equals("") || direccion.equals("") || latitud.equals("") || longitud.equals("")){
                     validacion();
                 }
                 else {
@@ -127,6 +131,8 @@ public class ingresarVecindario extends AppCompatActivity {
                     v.setUid(UUID.randomUUID().toString());
                     v.setNombre(nombre);
                     v.setDireccion(direccion);
+                    v.setLatitud(latitud);
+                    v.setLongitud(longitud);
                     databaseReference.child("Vecindario").child(v.getUid()).setValue(v);
                     Toast.makeText(this, "Agregar", Toast.LENGTH_LONG).show();
                     limpiarCajas();
@@ -139,6 +145,8 @@ public class ingresarVecindario extends AppCompatActivity {
                 v.setUid(vecindarioSeleccionado.getUid());
                 v.setNombre(nombreVec.getText().toString().trim());
                 v.setDireccion(direccionVec.getText().toString().trim());
+                v.setLatitud(direccionVec.getText().toString().trim());
+                v.setLongitud(direccionVec.getText().toString().trim());
                 databaseReference.child("Vecindario").child(v.getUid()).setValue(v);
                 Toast.makeText(this,"Guardar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
@@ -174,19 +182,26 @@ public class ingresarVecindario extends AppCompatActivity {
 
         nombreVec.setText("");
         direccionVec.setText("");
-
+        latitudVec.setText("");
+        longitudVec.setText("");
     }
 
     private void validacion() {
 
         String nombre = nombreVec.getText().toString();
         String direccion = direccionVec.getText().toString();
+        String latitud = latitudVec.getText().toString();
+        String longitud = longitudVec.getText().toString();
 
 
         if (nombre.equals("")) {
             nombreVec.setError("Requerido");
         } else if (direccion.equals("")) {
             direccionVec.setError("Requerido");
+        }else if (latitud.equals("")){
+            latitudVec.setError("Requerido");
+        }else if (longitud.equals("")){
+            longitudVec.setError("Requerido");
         }
     }
 

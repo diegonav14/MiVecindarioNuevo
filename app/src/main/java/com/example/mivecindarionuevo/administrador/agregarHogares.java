@@ -46,7 +46,7 @@ public class agregarHogares extends AppCompatActivity {
 
     Spinner spinnerVecindario;
 
-    EditText dirHogar, nomHogar, comHogar;
+    EditText dirHogar, nomHogar, comHogar, latitudHogar, longitudHogar;
 
     private List<Hogar> listaHogares = new ArrayList<Hogar>();
     ArrayAdapter<Hogar> arrayAdapterHogar;
@@ -61,6 +61,8 @@ public class agregarHogares extends AppCompatActivity {
         dirHogar=findViewById(R.id.et_direccionHogar);
         nomHogar=findViewById(R.id.et_nombreHogar);
         comHogar=findViewById(R.id.et_comentarioHogar);
+        latitudHogar=findViewById(R.id.et_latitudHogar);
+        longitudHogar=findViewById(R.id.et_longitudHogar);
         spinnerVecindario = findViewById(R.id.spVecindarioHogar);
 
         toolbar = findViewById(R.id.toolbar);
@@ -85,7 +87,8 @@ public class agregarHogares extends AppCompatActivity {
                 dirHogar.setText(hogarSeleccionado.getDireccion());
                 nomHogar.setText(hogarSeleccionado.getNombre());
                 comHogar.setText(hogarSeleccionado.getComentario());
-
+                latitudHogar.setText(hogarSeleccionado.getLatitud());
+                longitudHogar.setText(hogarSeleccionado.getLongitud());
                 for (int i = 0; i <= spinnerVecindario.getCount() ; i++){
                     if (spinnerVecindario.getItemAtPosition(i).toString().equals(hogarSeleccionado.getVecindario().getNombre())){
                         spinnerVecindario.setSelection(i);
@@ -164,9 +167,11 @@ public class agregarHogares extends AppCompatActivity {
                         String nombre= nomHogar.getText().toString();
                         String direccion= dirHogar.getText().toString();
                         String comentario= comHogar.getText().toString();
+                        String latitud= latitudHogar.getText().toString();
+                        String longitud= longitudHogar.getText().toString();
                         String vecindario = spinnerVecindario.getSelectedItem().toString();
 
-                        if (nombre.equals("") || direccion.equals("") || comentario.equals("") || vecindario.equals("Vecindario")){
+                        if (nombre.equals("") || direccion.equals("") || comentario.equals("") || latitud.equals("") || longitud.equals("") || vecindario.equals("Vecindario")){
                             validacion();
                         }
                         else {
@@ -175,6 +180,8 @@ public class agregarHogares extends AppCompatActivity {
                             h.setNombre(nombre);
                             h.setDireccion(direccion);
                             h.setComentario(comentario);
+                            h.setLatitud(latitud);
+                            h.setLongitud(longitud);
                             for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                                 Vecindario v = objSnapshot.getValue(Vecindario.class);
                                 if (vecindario.equals(v.getNombre())){
@@ -206,6 +213,8 @@ public class agregarHogares extends AppCompatActivity {
                         h.setNombre(nomHogar.getText().toString().trim());
                         h.setDireccion(dirHogar.getText().toString().trim());
                         h.setComentario(comHogar.getText().toString().trim());
+                        h.setLatitud(latitudHogar.getText().toString().trim());
+                        h.setLongitud(longitudHogar.getText().toString().trim());
                         for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                             Vecindario v = objSnapshot.getValue(Vecindario.class);
                             if (spinnerVecindario.getSelectedItem().toString().equals(v.getNombre().trim())){
@@ -255,7 +264,8 @@ public class agregarHogares extends AppCompatActivity {
         String nombre = nomHogar.getText().toString();
         String direccion = dirHogar.getText().toString();
         String comentario = comHogar.getText().toString();
-
+        String latitud= latitudHogar.getText().toString();
+        String longitud= longitudHogar.getText().toString();
 
         if (nombre.equals("")) {
             nomHogar.setError("Requerido");
@@ -265,8 +275,11 @@ public class agregarHogares extends AppCompatActivity {
             comHogar.setError("Requerido");
         }else if (spinnerVecindario.getSelectedItem().toString().equals("Vecindario")) {
             Toast.makeText(agregarHogares.this,"Debe seleccionar el vecindario", Toast.LENGTH_LONG).show();
+        } else if (latitud.equals("")) {
+            latitudHogar.setError("Requerido");
+        } else if (longitud.equals("")) {
+            longitudHogar.setError("Requerido");
         }
-
     }
 
     private void limpiarCajas() {
@@ -274,6 +287,8 @@ public class agregarHogares extends AppCompatActivity {
         nomHogar.setText("");
         dirHogar.setText("");
         comHogar.setText("");
+        latitudHogar.setText("");
+        longitudHogar.setText("");
         spinnerVecindario.setSelection(0);
 
     }

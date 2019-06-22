@@ -6,6 +6,8 @@ public class Hogar {
     private String nombre;
     private String uid;
     private String comentario;
+    private String latitud;
+    private String longitud;
     private Vecindario vecindario;
 
     public Hogar (){
@@ -43,6 +45,21 @@ public class Hogar {
         this.comentario = comentario;
     }
 
+    public String getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
+    }
 
     public String getUid() {
         return uid;
