@@ -95,13 +95,17 @@
 
     <ImageView
         android:id="@+id/iv_logoinicio"
-        android:layout_width="232dp"
-        android:layout_height="203dp"
+        android:layout_width="227dp"
+        android:layout_height="233dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="@drawable/logo_estilo"
+        android:padding="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/start" />
 
 

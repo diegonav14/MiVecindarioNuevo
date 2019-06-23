@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="200dp"/>
-    <solid android:color="#c9e265"/>
-    <stroke android:width="3dp"
-        android:color="#020202"/>
-</selector>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:innerRadius="100dp"
+    android:shape="rectangle">
+    <corners
+        android:topLeftRadius="200dp"
+        android:topRightRadius="200dp"
+        android:bottomLeftRadius="200dp"
+        android:bottomRightRadius="200dp"
+        android:radius="400dp" />
+    <size
+        android:width="300dp"
+        android:height="300dp" />
+
+    <gradient
+        android:endColor="#c9e265"
+        android:startColor="#c9e265" />
+
+    <stroke
+        android:width="5dp"
+        android:color="#000401" />
+</shape>
