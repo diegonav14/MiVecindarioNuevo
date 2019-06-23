@@ -24,6 +24,7 @@
         android:paddingTop="15dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#FC030000"
+        android:textColorHint="#03521B"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
@@ -45,12 +46,15 @@
         android:hint="@string/Contraseña"
         android:inputType="textPassword"
         android:paddingTop="15dp"
-        android:textColor="#050505"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#FC030000"
+        android:textColorHint="#03521B"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_correo"
+        app:passwordToggleEnabled="true"
         tools:ignore="MissingConstraints" />
 
 
