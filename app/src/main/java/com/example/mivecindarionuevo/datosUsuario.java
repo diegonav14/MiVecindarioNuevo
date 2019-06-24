@@ -65,11 +65,11 @@ public class datosUsuario extends AppCompatActivity {
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
                     Usuario usuario = objSnapshot.getValue(Usuario.class);
                     if (nmUsuario.equals(usuario.getNombre()) && apUsuario.equals(usuario.getApellido())) {
-                        txt_miNombre.equals(usuario.getNombre());
-                        txt_miApellido.equals(usuario.getApellido());
-                        txt_miDireccion.equals(usuario.getDireccion());
-                        txt_miTelefono.equals(usuario.getTelefono());
-                        txt_miCorreo.equals(usuario.getCorreo());
+                        txt_miNombre.setText(usuario.getNombre());
+                        txt_miApellido.setText(usuario.getApellido());
+                        txt_miDireccion.setText(usuario.getDireccion());
+                        txt_miTelefono.setText(usuario.getTelefono());
+                        txt_miCorreo.setText(usuario.getCorreo());
                     }
                 }
             }
