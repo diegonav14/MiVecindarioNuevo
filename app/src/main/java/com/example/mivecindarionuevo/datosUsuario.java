@@ -79,7 +79,7 @@ public class datosUsuario extends AppCompatActivity {
 
             }
         });
-    }
+    } // Muestra los datos del usuario que inicio sesion, Parametro salida: String
 
     public void modificarDatosUsuario(View v) {
 
@@ -134,52 +134,52 @@ public class datosUsuario extends AppCompatActivity {
 
         }
 
-    }
+    } // Modifica los datos del usuario que inicio sesion
 
     private void incializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    } // Inicializar Firebase
+    } // Inicializa la base de datos, en este caso Firebase
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_usuario,menu);
         return super.onCreateOptionsMenu(menu);
-    }
+    } // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
 
-            case R.id.verVecindario:{
+            case R.id.verVecindario:{ // Inicia la vista (Activity) MapsActivity que mustra el mapa del vecindario
                 Intent intent = new Intent(this,MapsActivity.class);
                 startActivity(intent);
 
                 break;
             }
 
-            case R.id.editarHogar:{
+            case R.id.editarHogar:{ // Inicia la vista (Activity) editarHogar
                 Intent intent = new Intent(this,editarHogar.class);
                 startActivity(intent);
 
                 break;
             }
 
-            case R.id.datosUsuario:{
+            case R.id.datosUsuario:{ // Inicia la vista (Activity) datosUsuario
                 Intent intent = new Intent(this,datosUsuario.class);
                 startActivity(intent);
 
                 break;
             }
 
-            case R.id.ingresarEventos:{
+            case R.id.ingresarEventos:{ // Inicia la vista (Activity) ingresarEvento
                 Intent intent = new Intent(this,ingresarEvento.class);
                 startActivity(intent);
                 break;
             }
 
-            case R.id.cerrarSesion:{
+            case R.id.cerrarSesion:{ // Cierra la sesion del usuario
                 SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferecias.edit();
                 editor.clear();
@@ -192,7 +192,7 @@ public class datosUsuario extends AppCompatActivity {
 
         }
         return true;
-    }
+    } // Metodos de las opciones del menu
 
     private void limpiarCajas() {
 
@@ -202,7 +202,7 @@ public class datosUsuario extends AppCompatActivity {
         passUsuario.setText("");
         telUsuario.setText("");
         dirUsuario.setText("");
-    }
+    } // Limpia los campos de datos
 
     private void validacion() {
 
@@ -234,13 +234,13 @@ public class datosUsuario extends AppCompatActivity {
         }
 
 
-    }
+    } // Valida que los campos de datos esten vacios
 
     private void cargarPreferencias() {
         SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         nmUsuario = preferecias.getString("nombreUsuario","NoSesion");
         apUsuario = preferecias.getString("apellidoUsuario","NoSesion");
         toolbar.setSubtitle(nmUsuario+" "+apUsuario);
-    }
+    } // Carga la sesion del usuario.
 
 }

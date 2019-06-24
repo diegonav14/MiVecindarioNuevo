@@ -45,6 +45,8 @@ public class ingresarEvento extends AppCompatActivity {
 
     private ListView lv_Eventos,lv_asistentes;
 
+    Usuario usuarioActual;
+
     private List<Evento> listaEventos = new ArrayList<Evento>();
     private  List<Usuario> listaAsistentes = new ArrayList<Usuario>();
     private ArrayAdapter<Evento> arrayAdapteEvento;
@@ -59,7 +61,6 @@ public class ingresarEvento extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     private Evento eventoSeleccionado;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +134,7 @@ public class ingresarEvento extends AppCompatActivity {
 
             }
         });
-    }
+    } // Agrega el objeto Usuario en una lista que sera tratada como los Participantes del evento, Parametro entrada: Usuario, Parametro salida: List
 
 
     private void tiposUsuarios(){
@@ -142,7 +143,7 @@ public class ingresarEvento extends AppCompatActivity {
 
             case "Presidente junta vecinos":{
                 btnEvento.setOnClickListener(new View.OnClickListener() {
-                    @Override
+                   @Override
                     public void onClick(View view) {
                         ingresarEvento();
                     }
@@ -151,14 +152,14 @@ public class ingresarEvento extends AppCompatActivity {
             }
 
             case "Jefe de hogar":{
-                btnEvento.setOnClickListener(new View.OnClickListener() {
+               btnEvento.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         ingresarEvento();
                     }
                 });
                 break;
-            }
+           }
 
             case "Miembro de hogar":{
                 btnEvento.setOnClickListener(new View.OnClickListener() {
@@ -210,34 +211,51 @@ public class ingresarEvento extends AppCompatActivity {
 
             }
         });
-    }
+    } // Ingresa un Evento a la base de datos, Parametro entrada: String, Parametro salida: Evento
 
     private void listarDatos() {
-        databaseReference.child("Evento").addValueEventListener(new ValueEventListener() {
+
+        databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listaEventos.clear();
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
-                    Evento e = objSnapshot.getValue(Evento.class);
-                    listaEventos.add(e);
-                    arrayAdapteEvento = new ArrayAdapter<Evento>(ingresarEvento.this, android.R.layout.simple_list_item_1, listaEventos);
-                    lv_Eventos.setAdapter(arrayAdapteEvento);
+                    Usuario u = objSnapshot.getValue(Usuario.class);
+                    if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)){
+                        usuarioActual = u;
+                    }
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-    } // Listar los los usuarios
+
+        databaseReference.child("Evento").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                    Evento e = objSnapshot.getValue(Evento.class);
+                    if (usuarioActual.getHogar().getVecindario().getNombre().equals(e.getUsuario().getHogar().getVecindario().getNombre())){
+                        listaEventos.add(e);
+                        arrayAdapteEvento = new ArrayAdapter<Evento>(ingresarEvento.this, android.R.layout.simple_list_item_1, listaEventos);
+                        lv_Eventos.setAdapter(arrayAdapteEvento);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    } // Lista los eventos que estan en la base de datos, Parametro salida: List
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_usuario,menu);
         return super.onCreateOptionsMenu(menu);
-    }
+    } // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -249,28 +267,28 @@ public class ingresarEvento extends AppCompatActivity {
                 startActivity(intent);
 
                 break;
-            }
+            } // Inicia la vista (Activity) MapsActivity que muestra el mapa del vecindario
 
             case R.id.ingresarEventos:{
                 Intent intent = new Intent(this,ingresarEvento.class);
                 startActivity(intent);
 
                 break;
-            }
+            } // Inicia la vista (Activity) Ingresar evento
 
             case R.id.editarHogar:{
                 Intent intent = new Intent(this,editarHogar.class);
                 startActivity(intent);
 
                 break;
-            }
+            } // Inicia la vista (Activity) Editar hogar
 
             case R.id.datosUsuario:{
                 Intent intent = new Intent(this,datosUsuario.class);
                 startActivity(intent);
 
                 break;
-            }
+            } // Inicia la vista (Activity) Datos usuario
 
             case R.id.cerrarSesion:{
                 SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -280,12 +298,12 @@ public class ingresarEvento extends AppCompatActivity {
                 Intent intent = new Intent(this,com.example.mivecindarionuevo.iniciarSesion.class);
                 startActivity(intent);
                 finish();
-            }
+            } // Cierra la sesion del usuario
             default:break;
 
         }
         return true;
-    }
+    } // Metodos de las opcion del menu
 
     private void validacion() {
 
@@ -299,7 +317,7 @@ public class ingresarEvento extends AppCompatActivity {
         }else if (fecha.equals("")) {
             fechaEvento.setError("Requerido");
         }
-    }
+    } // Valida que los campos de datos no esten vacios
 
     private void limpiarCajas() {
 
@@ -307,12 +325,12 @@ public class ingresarEvento extends AppCompatActivity {
         fechaEvento.setText("");
         tipoEvento.setSelection(0);
 
-    }
+    } // Limpia los campos de datos
 
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    }
+    } // Inicializa la conexion con la base de datos, en este caso Firebase
 
     private void cargarPreferencias() {
         SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -320,6 +338,6 @@ public class ingresarEvento extends AppCompatActivity {
         apUsuario = preferecias.getString("apellidoUsuario","NoSesion");
         tipoUsuario = preferecias.getString("tipoUsuario","NoSesion");
         toolbar.setSubtitle(nmUsuario+" "+apUsuario);
-    }
+    } // Carga la sesion del usuario.
 
 }

@@ -33,8 +33,6 @@ public class inicioAdmin extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-
-
         cargarPreferencias();
         incializarFirebase();
     }
@@ -45,41 +43,34 @@ public class inicioAdmin extends AppCompatActivity {
         String nmAdmin = preferencias.getString("nombreAdmin","NoSesion");
         String apAdmin = preferencias.getString("apellidoAdmin","NoSesion");
         toolbar.setSubtitle(nmAdmin+" "+apAdmin);
-    }
-
+    } // Carga la sesion del usuario
 
     public void irUsuario (View v){
         Intent intent = new Intent(inicioAdmin.this, ingresarUsuarios.class);
         startActivity(intent);
-    }
+    } // Inicia la vista(Activity) de Ingresar Usuarios
 
     public void irVecindario (View v){
         Intent intent = new Intent(inicioAdmin.this, ingresarVecindario.class);
         startActivity(intent);
-    }
+    } // Inicia la vista(Activity) de Ingresar Vecindario
 
     public void irHogares (View v){
         Intent intent = new Intent(inicioAdmin.this, agregarHogares.class);
         startActivity(intent);
-    }
-
-    public void irMapa (View v){
-        Intent intent = new Intent(inicioAdmin.this, ingresarMapaVecindario.class);
-        startActivity(intent);
-    }
+    } // Inicia la vista (Activity) Ingresar Hogares
 
     private void incializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         //firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
-    }
+    } // Inicia la conexion con la base de datos
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_admin,menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
+    } // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -94,11 +85,11 @@ public class inicioAdmin extends AppCompatActivity {
                 Intent intent = new Intent(this, com.example.mivecindarionuevo.iniciarSesion.class);
                 startActivity(intent);
                 finish();
-            }
+            } // Cierra la sesion del usuario
             default:break;
 
         }
         return true;
-    }
+    } // Metodos de las opciones del menu
 
 }

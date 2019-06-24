@@ -84,7 +84,7 @@ public class ingresarUsuarios extends AppCompatActivity {
 
         listV_usuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) { // Metodo OnClick para seleccionar el objeto de una lista de usuarios
                 usuarioSeleccionado = (Usuario) parent.getItemAtPosition(position);
                 nomUsuario.setText(usuarioSeleccionado.getNombre());
                 apeUsuario.setText(usuarioSeleccionado.getApellido());
@@ -126,7 +126,7 @@ public class ingresarUsuarios extends AppCompatActivity {
 
             }
         });
-    } // Listar los los usuarios
+    } // Lista los Usuarios que estan guardados en la base de datos, Parametro de entrada: Usuario, Parametro de salida: List
 
     private void spinnerHogar (){
         databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
@@ -143,19 +143,19 @@ public class ingresarUsuarios extends AppCompatActivity {
 
             }
         });
-    }
+    } // Lista los Hogares que pueden ser seleccionados en un Spinner, Parametro de entrada: Hogar, Parametro de salida: List
 
     private void incializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         //firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
-    } // Inicializar Firebase
+    } // Inicializa la conexion a la base de datos, en este caso Firebase
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return super.onCreateOptionsMenu(menu);
-    }
+    } // Setea en  menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -212,7 +212,7 @@ public class ingresarUsuarios extends AppCompatActivity {
                 });
 
                 break;
-            }
+            } // Ingresa un objeto Usuario a la base de datos, Parametro entrada: String, Hogar Parametro salida: Usuario
 
             case R.id.icon_save:{
 
@@ -247,7 +247,7 @@ public class ingresarUsuarios extends AppCompatActivity {
                 });
 
                 break;
-            }
+            } // Modifica un objeto Usuario que se selccione de la lista de usuarios, Parametro entrada: String, Parametro salida: Usuario
 
             case R.id.icon_delete:{
                 Usuario u = new Usuario();
@@ -256,7 +256,7 @@ public class ingresarUsuarios extends AppCompatActivity {
                 Toast.makeText(this,"Eliminar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
                 break;
-            }
+            } // Elimina un objeto Usuario que se seleccione de la lista de usuarios.
 
             case R.id.icon_login:{
                 SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -266,12 +266,12 @@ public class ingresarUsuarios extends AppCompatActivity {
                 Intent intent = new Intent(this, com.example.mivecindarionuevo.iniciarSesion.class);
                 startActivity(intent);
                 finish();
-            }
+            } // Cierra la sesion del usuario
             default:break;
 
         }
         return true;
-    }
+    } //Metodos de las opciones del menu
 
     private void limpiarCajas() {
 
@@ -283,7 +283,7 @@ public class ingresarUsuarios extends AppCompatActivity {
         dirUsuario.setText("");
         spinnerHogar.setSelection(0);
         spinnerTipo.setSelection(0);
-    }
+    } // Limpia los campos de datos
 
     private void validacion() {
 
@@ -320,12 +320,12 @@ public class ingresarUsuarios extends AppCompatActivity {
             Toast.makeText(this,"Debe seleccionar el Hogar", Toast.LENGTH_LONG).show();
         }
 
-    }
+    } // Valida que los campos de datos no esten vacios
 
     private void cargarPreferencias() {
         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         String nmAdmin = preferencias.getString("nombreAdmin","NoSesion");
         String apAdmin = preferencias.getString("apellidoAdmin","NoSesion");
         toolbar.setSubtitle(nmAdmin+" "+apAdmin);
-    }
+    } // Carga la sesion del usuario
 }

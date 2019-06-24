@@ -82,7 +82,7 @@ public class agregarHogares extends AppCompatActivity {
 
         listV_hogar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {  // Metodo que selecciona el objeto Hogar que se utulizara
                 hogarSeleccionado = (Hogar) parent.getItemAtPosition(position);
                 dirHogar.setText(hogarSeleccionado.getDireccion());
                 nomHogar.setText(hogarSeleccionado.getNombre());
@@ -100,12 +100,12 @@ public class agregarHogares extends AppCompatActivity {
         });
 
 
-    }
+    } // Metodo On Create para setear los campos de los Layouts o Vistas
 
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    }
+    } //Inicia la conexion con la base de datos o en este caso con Firebase
 
     private void listarDatos() {
         databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
@@ -126,7 +126,7 @@ public class agregarHogares extends AppCompatActivity {
 
             }
         });
-    } // Listar los los usuarios
+    } // Lista los hogares que se han creado, Parametro de salida: Objeto Hogar
 
     private void spinnerVecindario (){
         databaseReference.child("Vecindario").addValueEventListener(new ValueEventListener() {
@@ -143,14 +143,14 @@ public class agregarHogares extends AppCompatActivity {
 
             }
         });
-    }
+    } //Lista los Vecindarios que estan disponibles en un Spinner, Parametro de salida: String
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         getSupportActionBar().setTitle("MiVecindario");
         return super.onCreateOptionsMenu(menu);
-    }
+    } // Setea el menu que se mostrara en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -201,7 +201,7 @@ public class agregarHogares extends AppCompatActivity {
                 });
 
                 break;
-            }
+            } // Crea un objeto Hogar para guardarlo en la base de datos, Parametro de entrada: String, Parametro de salida: Hogar
 
             case R.id.icon_save:{
 
@@ -233,7 +233,7 @@ public class agregarHogares extends AppCompatActivity {
                 });
 
                 break;
-            }
+            } // Modifica el objeto Hogar seleccionado, Parametro de entrada: String, Parametro de salida: Hogar
 
             case R.id.icon_delete:{
                 Hogar h = new Hogar();
@@ -242,7 +242,7 @@ public class agregarHogares extends AppCompatActivity {
                 Toast.makeText(this,"Eliminar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
                 break;
-            }
+            } // Elimina el objeto Hogar seleccionado, Parametro salida: Hogar
 
             case R.id.icon_login:{
                 SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -252,12 +252,12 @@ public class agregarHogares extends AppCompatActivity {
                 Intent intent = new Intent (this,com.example.mivecindarionuevo.iniciarSesion.class);
                 startActivity(intent);
                 finish();
-            }
+            } // Cierra la sesion del usuario
             default:break;
 
         }
         return true;
-    }
+    } // Metodos de las opciones del menu
 
     private void validacion() {
 
@@ -280,7 +280,7 @@ public class agregarHogares extends AppCompatActivity {
         } else if (longitud.equals("")) {
             longitudHogar.setError("Requerido");
         }
-    }
+    } // Valida que los campos de datos no esten vacios
 
     private void limpiarCajas() {
 
@@ -291,12 +291,12 @@ public class agregarHogares extends AppCompatActivity {
         longitudHogar.setText("");
         spinnerVecindario.setSelection(0);
 
-    }
+    } // Limpia los campos de datos
 
     private void cargarPreferencias() {
         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         String nmAdmin = preferencias.getString("nombreAdmin","NoSesion");
         String apAdmin = preferencias.getString("apellidoAdmin","NoSesion");
         toolbar.setSubtitle(nmAdmin+" "+apAdmin);
-    }
+    } // Carga los datos de la sesion del usuario.
 }

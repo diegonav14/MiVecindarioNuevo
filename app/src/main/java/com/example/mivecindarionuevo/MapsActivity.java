@@ -54,31 +54,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    }
+    } // Inicializa la conexion con la base de datos, en este caso Firebase
 
     private void cargarPreferencias() {
         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         nmUsuario = preferencias.getString("nombreUsuario","NoSesion");
         apUsuario = preferencias.getString("apellidoUsuario","NoSesion");
-    }
+    } // Carga la sesion del usuario
 
     public void ingresarEvento (View v){
         Intent intent = new Intent(this,ingresarEvento.class);
         startActivity(intent);
 
-    }
+    } // Inicia la vista (Activity) Ingresar evento
 
     public void misDatos (View v){
         Intent intent = new Intent(this,datosUsuario.class);
         startActivity(intent);
 
-    }
+    } // Inicia la vista (Activity) Datos usuario
 
     public void miHogar (View v){
         Intent intent = new Intent(this,editarHogar.class);
         startActivity(intent);
 
-    }
+    } // Inicia la vista (Activity) Editar hogar
 
     public void cerrarSesion (View v){
         SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -88,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = new Intent(this,iniciarSesion.class);
         startActivity(intent);
         finish();
-    }
+    } // Cerrar sesion del usuario
 
 
     /**
@@ -107,7 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.setMinZoomPreference(17.0f);
         agregarMarcadores(googleMap);
         // Add a marker in Sydney and move the camera
-    }
+    } // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
 
 
     public void agregarMarcadores(GoogleMap googleMap){
@@ -153,6 +153,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    }
+    } // Metodo que crea los marcadores de los hogares del vecindario
 
 }

@@ -67,7 +67,7 @@ public class ingresarVecindario extends AppCompatActivity {
 
         listV_vecindario.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) { // Metodo OnClick para seleccionar un Objeto de una lista vecindarios
                 vecindarioSeleccionado = (Vecindario) parent.getItemAtPosition(position);
                 nombreVec.setText(vecindarioSeleccionado.getNombre());
                 direccionVec.setText(vecindarioSeleccionado.getDireccion());
@@ -82,7 +82,7 @@ public class ingresarVecindario extends AppCompatActivity {
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    }
+    } // Inicializa la conexion con la base de datos, en este caso Firebase
 
     private void listarDatos() {
         databaseReference.child("Vecindario").addValueEventListener(new ValueEventListener() {
@@ -103,12 +103,13 @@ public class ingresarVecindario extends AppCompatActivity {
 
             }
         });
-    } // Listar los los usuarios
+    } // Listar los vecindarios que estan en la base de datos, Parametro entrada: Vecidario, Parametro salida: List
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return super.onCreateOptionsMenu(menu);
-    }
+    } // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -138,7 +139,7 @@ public class ingresarVecindario extends AppCompatActivity {
                     limpiarCajas();
                 }
                 break;
-            }
+            } // Ingresa un objeto Vecindario en la base de datos, Parametro entrada: String, Parametro salida: Vecindario
 
             case R.id.icon_save:{
                 Vecindario v = new Vecindario ();
@@ -151,7 +152,7 @@ public class ingresarVecindario extends AppCompatActivity {
                 Toast.makeText(this,"Guardar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
                 break;
-            }
+            } // Modifica el objeto Vecindario seleccionado, Parametro entrada: String, Parametro salida: Vecindario
 
             case R.id.icon_delete:{
                 Vecindario v = new Vecindario ();
@@ -160,7 +161,7 @@ public class ingresarVecindario extends AppCompatActivity {
                 Toast.makeText(this,"Eliminar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
                 break;
-            }
+            } // Elimina el objeto Vecindario seleccionado de la base de datos.
 
             case R.id.icon_login:{
                 SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -170,12 +171,12 @@ public class ingresarVecindario extends AppCompatActivity {
                 Intent intent = new Intent(this, com.example.mivecindarionuevo.iniciarSesion.class);
                 startActivity(intent);
                 finish();
-            }
+            } // Cierra la sesion del usuario
             default:break;
 
         }
         return true;
-    }
+    } // Metodos de las opciones del menu
 
 
     private void limpiarCajas() {
@@ -184,7 +185,7 @@ public class ingresarVecindario extends AppCompatActivity {
         direccionVec.setText("");
         latitudVec.setText("");
         longitudVec.setText("");
-    }
+    } // Limpia los campos de datos
 
     private void validacion() {
 
@@ -203,13 +204,13 @@ public class ingresarVecindario extends AppCompatActivity {
         }else if (longitud.equals("")){
             longitudVec.setError("Requerido");
         }
-    }
+    } // Valida que los campos de datos no esten vacios
 
     private void cargarPreferencias() {
         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         String nmAdmin = preferencias.getString("nombreAdmin","NoSesion");
         String apAdmin = preferencias.getString("apellidoAdmin","NoSesion");
         toolbar.setSubtitle(nmAdmin+" "+apAdmin);
-    }
+    } // Carga la sesion del usuario
 
 }

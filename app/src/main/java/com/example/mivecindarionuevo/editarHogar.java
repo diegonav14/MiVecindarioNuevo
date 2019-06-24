@@ -111,7 +111,7 @@ public class editarHogar extends AppCompatActivity {
 
             }
         });
-    }
+    } // Modifica el hogar del usuario que inicio sesion, Parametro entrada: String, Parametro salida: Hogar
 
     private void listarDatos() {
 
@@ -154,15 +154,14 @@ public class editarHogar extends AppCompatActivity {
 
             }
         });
-    }
-
+    } // Lista los datos del hogar de usuario que inicio seison, Parametro salida: List
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_usuario,menu);
         return super.onCreateOptionsMenu(menu);
-    }
+    } // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -174,28 +173,28 @@ public class editarHogar extends AppCompatActivity {
                 startActivity(intent);
 
                 break;
-            }
+            } // Inicia la vista (Activity) MapsActivity que muestra el mapa
 
             case R.id.ingresarEventos:{
                 Intent intent = new Intent(this,ingresarEvento.class);
                 startActivity(intent);
 
                 break;
-            }
+            } // Inicia la vista (Activity) Ingresar evento
 
             case R.id.editarHogar:{
                 Intent intent = new Intent(this,editarHogar.class);
                 startActivity(intent);
 
                 break;
-            }
+            } // Inicia la vista (Activity) Editar Hogar
 
             case R.id.datosUsuario:{
                 Intent intent = new Intent(this,datosUsuario.class);
                 startActivity(intent);
 
                 break;
-            }
+            } // Inicia la vista (Activity) Datos Usuario
 
             case R.id.cerrarSesion:{
                 SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -205,19 +204,18 @@ public class editarHogar extends AppCompatActivity {
                 Intent intent = new Intent(this,com.example.mivecindarionuevo.iniciarSesion.class);
                 startActivity(intent);
                 finish();
-            }
+            } // Cierra la sesion del usuario actual
             default:break;
-
         }
         return true;
-    }
+    } // Metodos de las opciones del menu
 
     private void cargarPreferencias() {
         SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         nmUsuario = preferecias.getString("nombreUsuario","NoSesion");
         apUsuario = preferecias.getString("apellidoUsuario","NoSesion");
         toolbar.setSubtitle(nmUsuario+" "+apUsuario);
-    }
+    } // Carga la sesion del usuario.
 
     private void validacion() {
 
@@ -233,7 +231,7 @@ public class editarHogar extends AppCompatActivity {
             direccionHogar.equals("Requerido");
         }
 
-    }
+    } // Valida que los campos de datos no esten vacios
 
     private void limpiarCajas() {
 
@@ -241,12 +239,12 @@ public class editarHogar extends AppCompatActivity {
         nombreHogar.setText("");
         direccionHogar.setText("");
 
-    }
+    } // Limpia los campos de datos
 
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    }
+    } // Inicializa la base de datos, en este caso Firebase
 
 
 }

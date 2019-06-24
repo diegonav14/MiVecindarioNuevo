@@ -80,9 +80,6 @@
             android:name=".administrador.ingresarUsuarios"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".administrador.ingresarMapaVecindario"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".administrador.agregarHogares"
             android:screenOrientation="portrait" />
         <activity
