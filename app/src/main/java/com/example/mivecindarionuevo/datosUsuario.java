@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,8 @@ public class datosUsuario extends AppCompatActivity {
 
     Toolbar toolbar;
 
+    TextView txt_miNombre,txt_miApellido,txt_miDireccion,txt_miTelefono, txt_miCorreo;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
@@ -41,16 +44,42 @@ public class datosUsuario extends AppCompatActivity {
         passUsuario=findViewById(R.id.et_passUsuarioM);
         telUsuario=findViewById(R.id.et_telefonoUsuarioM);
         dirUsuario=findViewById(R.id.et_direccionUsuarioM);
+        txt_miNombre=findViewById(R.id.txt_miNombre);
+        txt_miApellido=findViewById(R.id.txt_miApellido);
+        txt_miDireccion=findViewById(R.id.txt_miDireccion);
+        txt_miTelefono=findViewById(R.id.txt_miTelefono);
+        txt_miCorreo=findViewById(R.id.txt_miCorreo);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         incializarFirebase();
-
         cargarPreferencias();
+        mostrarMisDatos();
     }
 
+    public void mostrarMisDatos(){
+        databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                    Usuario usuario = objSnapshot.getValue(Usuario.class);
+                    if (nmUsuario.equals(usuario.getNombre()) && apUsuario.equals(usuario.getApellido())) {
+                        txt_miNombre.equals(usuario.getNombre());
+                        txt_miApellido.equals(usuario.getApellido());
+                        txt_miDireccion.equals(usuario.getDireccion());
+                        txt_miTelefono.equals(usuario.getTelefono());
+                        txt_miCorreo.equals(usuario.getCorreo());
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public void modificarDatosUsuario(View v) {
 

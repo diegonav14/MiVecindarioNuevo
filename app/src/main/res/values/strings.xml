@@ -38,6 +38,9 @@
     <string name="latitud">Latitud</string>
     <string name="longitud">Longitud</string>
     <string name="miembros_de_mi_hogar">Miembros de mi hogar</string>
+    <string name="mi_perfil">Mi Perfil</string>
+    <string name="mis_datos">Mis Datos</string>
+    <string name="title_activity_maps2">Map</string>
 
 
 </resources>

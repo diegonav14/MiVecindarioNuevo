@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    GoogleMap mMap;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -35,8 +35,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     Usuario usuarioActual;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +44,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        cargarPreferencias();
         inicializarFirebase();
-
+        cargarPreferencias();
 
     }
 
@@ -106,8 +103,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.setMinZoomPreference(17.0f);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap.setMinZoomPreference(17.0f);
         agregarMarcadores(googleMap);
         // Add a marker in Sydney and move the camera
     }
@@ -123,7 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                     Usuario u = objSnapshot.getValue(Usuario.class);
                     if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)){
-                            usuarioActual = u;
+                        usuarioActual = u;
                     }
                 }
 
@@ -138,13 +135,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                     Hogar h = objSnapshot.getValue(Hogar.class);
-
                     if (usuarioActual.getHogar().getVecindario().getNombre().equals(h.getVecindario().getNombre())){
-
                         double latitud = Double.parseDouble(h.getLatitud());
                         double longitud = Double.parseDouble(h.getLongitud());
                         LatLng padreHurtado = new LatLng(latitud,longitud);
-                        mMap.addMarker(new MarkerOptions().position(padreHurtado).title(h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casa_round)));
+                        mMap.addMarker(new MarkerOptions().position(padreHurtado).title(h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casmarket_round)));
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
                     }
                 }
