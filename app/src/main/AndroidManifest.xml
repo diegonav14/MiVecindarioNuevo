@@ -47,6 +47,10 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".administrador.MapsActivityAdmin"
+            android:label="@string/title_activity_maps_admin" />
+        <activity android:name=".modificarMiembro" />
+        <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="landscape" />
@@ -63,13 +67,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ingresarEvento"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".editarHogar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".datosUsuario"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".administrador.inicioAdmin"
             android:screenOrientation="portrait" />

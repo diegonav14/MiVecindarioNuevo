@@ -2,7 +2,7 @@ package com.example.mivecindarionuevo.modelos;
 
 public class Usuario {
 
-    private String uid;
+    private String rut;
     private String Nombre;
     private String Apellido;
     private String Correo;
@@ -17,12 +17,12 @@ public class Usuario {
     }
 
 
-    public String getUid() {
-        return uid;
+    public String getRut() {
+        return rut;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setRut(String rut) {
+        this.rut = rut;
     }
 
     public String getNombre() {

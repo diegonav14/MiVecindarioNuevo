@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -38,6 +39,8 @@ public class ingresarVecindario extends AppCompatActivity {
 
     Vecindario vecindarioSeleccionado;
 
+    Button btn_verMapa;
+
     ListView listV_vecindario;
 
     private List<Vecindario> listaVecindario = new ArrayList<Vecindario>();
@@ -45,7 +48,7 @@ public class ingresarVecindario extends AppCompatActivity {
 
     Toolbar toolbar;
 
-
+    String uidVecindario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,7 @@ public class ingresarVecindario extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        btn_verMapa = findViewById(R.id.btn_verMapa);
         nombreVec = findViewById(R.id.et_nombreVecindario);
         direccionVec = findViewById(R.id.et_direccionVecindario);
         latitudVec= findViewById(R.id.et_latitudVecindario);
@@ -73,16 +77,23 @@ public class ingresarVecindario extends AppCompatActivity {
                 direccionVec.setText(vecindarioSeleccionado.getDireccion());
                 latitudVec.setText(vecindarioSeleccionado.getLatitud());
                 longitudVec.setText(vecindarioSeleccionado.getLongitud());
+                uidVecindario = vecindarioSeleccionado.getUid();
+                btn_verMapa.setVisibility(View.VISIBLE);
             }
         });
 
-
     }
 
-    private void inicializarFirebase() {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-    } // Inicializa la conexion con la base de datos, en este caso Firebase
+
+
+    public void mostrarMapaVecindario (View view){
+        SharedPreferences mapauid = getSharedPreferences("mapaUid", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorMapa = mapauid.edit();
+        editorMapa.putString("mapaUid",uidVecindario);
+        editorMapa.apply();
+        Intent intent = new Intent(this,MapsActivityAdmin.class);
+        startActivity(intent);
+    } // Crea un dato compartido que contiene la id del Vecindario que se mostrara en el mapa, Parametro entrada: String, Parametro salida: String
 
     private void listarDatos() {
         databaseReference.child("Vecindario").addValueEventListener(new ValueEventListener() {
@@ -213,4 +224,8 @@ public class ingresarVecindario extends AppCompatActivity {
         toolbar.setSubtitle(nmAdmin+" "+apAdmin);
     } // Carga la sesion del usuario
 
+    private void inicializarFirebase() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+    } // Inicializa la conexion con la base de datos, en este caso Firebase
 }

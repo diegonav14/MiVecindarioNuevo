@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,7 +34,7 @@ public class editarHogar extends AppCompatActivity {
 
     EditText comentarioHogar, direccionHogar, nombreHogar;
 
-    String nmUsuario,apUsuario;
+    String nmUsuario,apUsuario,tipoUsuario;
 
     ListView lv_miembrosHogar;
 
@@ -47,6 +48,9 @@ public class editarHogar extends AppCompatActivity {
     private ArrayAdapter<Usuario> arrayAdapteMiembro;
 
     Usuario usuarioActual;
+
+    Usuario usuarioSeleccionado;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,27 @@ public class editarHogar extends AppCompatActivity {
 
         cargarPreferencias();
         listarDatos();
+        tipoUsuarioModificar();
+    }
+
+    private void tipoUsuarioModificar(){
+
+        if (tipoUsuario.equals("Jefe de hogar") || tipoUsuario.equals("Presidente junta vecinos")){
+            lv_miembrosHogar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                    usuarioSeleccionado = (Usuario) parent.getItemAtPosition(position);
+                    SharedPreferences usuarioModificar = getSharedPreferences("usuarioModificar", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorUsuario = usuarioModificar.edit();
+                    editorUsuario.putString("nombreUsuario", usuarioSeleccionado.getNombre());
+                    editorUsuario.putString("apellidoUsuario",usuarioSeleccionado.getApellido());
+                    editorUsuario.commit();
+                    Intent intent = new Intent(editarHogar.this,modificarMiembro.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
     }
 
     public void modificarHogar( View v){
@@ -89,7 +114,7 @@ public class editarHogar extends AppCompatActivity {
                         Usuario u = objSnapshot.getValue(Usuario.class);
                         if (nmUsuario.equals(u.getNombre()) && apUsuario.equals(u.getApellido())){
                             hogarUsuario = u.getHogar().getUid();
-                            idusuario = u.getUid();
+                            idusuario = u.getRut();
                             h.setNombre(nombre);
                             h.setDireccion(direccion);
                             h.setComentario(comentario);
@@ -156,7 +181,6 @@ public class editarHogar extends AppCompatActivity {
         });
     } // Lista los datos del hogar de usuario que inicio seison, Parametro salida: List
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_usuario,menu);
@@ -214,6 +238,7 @@ public class editarHogar extends AppCompatActivity {
         SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         nmUsuario = preferecias.getString("nombreUsuario","NoSesion");
         apUsuario = preferecias.getString("apellidoUsuario","NoSesion");
+        tipoUsuario = preferecias.getString("tipoUsuario","NoSesion");
         toolbar.setSubtitle(nmUsuario+" "+apUsuario);
     } // Carga la sesion del usuario.
 
@@ -228,7 +253,7 @@ public class editarHogar extends AppCompatActivity {
         } else if (nombre.equals("")){
             nombreHogar.setError("Requerido");
         }else if (direccion.equals("")){
-            direccionHogar.equals("Requerido");
+            direccionHogar.setError("Requerido");
         }
 
     } // Valida que los campos de datos no esten vacios

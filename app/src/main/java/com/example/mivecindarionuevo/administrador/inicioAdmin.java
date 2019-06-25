@@ -60,6 +60,11 @@ public class inicioAdmin extends AppCompatActivity {
         startActivity(intent);
     } // Inicia la vista (Activity) Ingresar Hogares
 
+    public void irMapa (View v){
+        Intent intent = new Intent (inicioAdmin.this, MapsActivityAdmin.class);
+        startActivity(intent);
+    } // Inicia la vista (Activity) MapsActivityAdmin para ver los mapas de los vecindarios
+
     private void incializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         //firebaseDatabase.setPersistenceEnabled(true);

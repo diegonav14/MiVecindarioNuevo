@@ -41,6 +41,10 @@
     <string name="mi_perfil">Mi Perfil</string>
     <string name="mis_datos">Mis Datos</string>
     <string name="title_activity_maps2">Map</string>
+    <string name="modificar_miembro">Modificar miembro</string>
+    <string name="title_activity_maps_admin">Map</string>
+    <string name="rut">Rut</string>
+    <string name="ver_mapa_vecindario">Ver mapa vecindario</string>
 
 
 </resources>

@@ -103,8 +103,8 @@ public class datosUsuario extends AppCompatActivity {
                     for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
                         Usuario usuario = objSnapshot.getValue(Usuario.class);
                         if (nmUsuario.equals(usuario.getNombre()) && apUsuario.equals(usuario.getApellido())) {
-                            uidUsuario = usuario.getUid();
-                            u.setUid(uidUsuario);
+                            uidUsuario = usuario.getRut();
+                            u.setRut(uidUsuario);
                             u.setNombre(nomUsuario.getText().toString());
                             u.setApellido(apeUsuario.getText().toString());
                             u.setCorreo(corUsuario.getText().toString());

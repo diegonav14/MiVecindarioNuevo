@@ -29,9 +29,7 @@
                 android:id="@+id/et_nombreVecindario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginTop="24dp"
                 android:hint="@string/Nombre"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
@@ -45,9 +43,7 @@
                 android:id="@+id/et_direccionVecindario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginTop="32dp"
                 android:hint="@string/Direccion"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
@@ -55,15 +51,13 @@
                 android:textColorHint="#03521B"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/et_nombreVecindario"
-                tools:layout_editor_absoluteX="38dp" />
+                tools:layout_editor_absoluteX="0dp" />
 
             <EditText
                 android:id="@+id/et_latitudVecindario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginTop="28dp"
                 android:hint="@string/latitud"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
@@ -71,15 +65,13 @@
                 android:textColorHint="#03521B"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/et_direccionVecindario"
-                tools:layout_editor_absoluteX="38dp" />
+                tools:layout_editor_absoluteX="0dp" />
 
             <EditText
                 android:id="@+id/et_longitudVecindario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginTop="28dp"
                 android:hint="@string/longitud"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
@@ -87,7 +79,7 @@
                 android:textColorHint="#03521B"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/et_latitudVecindario"
-                tools:layout_editor_absoluteX="38dp" />
+                tools:layout_editor_absoluteX="0dp" />
 
             <TextView
                 android:id="@+id/txt_listaVecindarios"
@@ -102,8 +94,9 @@
                 android:textColor="#03521B"
                 android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.484"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ListView
@@ -119,6 +112,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_listaVecindarios" />
+
+            <Button
+                android:id="@+id/btn_verMapa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="600dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:visibility="gone"
+                android:onClick="mostrarMapaVecindario"
+                android:text="@string/ver_mapa_vecindario"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_listaVecindarios" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

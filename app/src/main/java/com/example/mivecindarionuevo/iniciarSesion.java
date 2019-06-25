@@ -24,7 +24,6 @@ public class iniciarSesion extends AppCompatActivity {
 
     EditText editTextCorreo, editTextPass;
 
-
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 

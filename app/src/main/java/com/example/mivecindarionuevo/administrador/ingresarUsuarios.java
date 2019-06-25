@@ -29,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class ingresarUsuarios extends AppCompatActivity {
 
@@ -37,7 +36,7 @@ public class ingresarUsuarios extends AppCompatActivity {
     private List<String> listaHogar = new ArrayList<String>();
     ArrayAdapter<Usuario> arrayAdapterUsuario;
 
-    EditText nomUsuario, apeUsuario, corUsuario, passUsuario, telUsuario, dirUsuario;
+    EditText nomUsuario, apeUsuario, corUsuario, passUsuario, telUsuario, dirUsuario, rutUsuario;
     ListView listV_usuarios;
 
     Spinner spinnerTipo,spinnerHogar;
@@ -59,6 +58,7 @@ public class ingresarUsuarios extends AppCompatActivity {
         nomUsuario=findViewById(R.id.et_nombreUsuario);
         apeUsuario=findViewById(R.id.et_apellidoUsuario);
         corUsuario=findViewById(R.id.et_correoUsuario);
+        rutUsuario=findViewById(R.id.et_rutUsuario);
         passUsuario=findViewById(R.id.et_passUsuario);
         telUsuario=findViewById(R.id.et_telefonoUsuario);
         dirUsuario=findViewById(R.id.et_direccionUsuario);
@@ -86,6 +86,7 @@ public class ingresarUsuarios extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) { // Metodo OnClick para seleccionar el objeto de una lista de usuarios
                 usuarioSeleccionado = (Usuario) parent.getItemAtPosition(position);
+                rutUsuario.setText(usuarioSeleccionado.getRut());
                 nomUsuario.setText(usuarioSeleccionado.getNombre());
                 apeUsuario.setText(usuarioSeleccionado.getApellido());
                 corUsuario.setText(usuarioSeleccionado.getCorreo());
@@ -168,8 +169,10 @@ public class ingresarUsuarios extends AppCompatActivity {
                 databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                         String hogar = spinnerHogar.getSelectedItem().toString();
                         String nombre= nomUsuario.getText().toString();
+                        String rut= rutUsuario.getText().toString();
                         String apellido= apeUsuario.getText().toString();
                         String correo= corUsuario.getText().toString();
                         String password= passUsuario.getText().toString();
@@ -177,13 +180,13 @@ public class ingresarUsuarios extends AppCompatActivity {
                         String direccion = dirUsuario.getText().toString();
                         String tipo = spinnerTipo.getSelectedItem().toString();
 
-                        if (nombre.equals("") || apellido.equals("") || correo.equals("") || password.equals("") || telefono.equals("") ||
+                        if (nombre.equals("") || apellido.equals("") || correo.equals("") || password.equals("") || telefono.equals("") || rut.equals("") ||
                                 direccion.equals("") || tipo.equals("Tipo") || hogar.equals("Hogar") ){
                             validacion();
                         }
                         else {
                             Usuario u = new Usuario();
-                            u.setUid(UUID.randomUUID().toString());
+                            u.setRut(rut);
                             u.setNombre(nombre);
                             u.setApellido(apellido);
                             u.setCorreo(correo);
@@ -197,7 +200,7 @@ public class ingresarUsuarios extends AppCompatActivity {
                                     u.setHogar(h);
                                 }
                             }
-                            databaseReference.child("Usuario").child(u.getUid()).setValue(u);
+                            databaseReference.child("Usuario").child(u.getRut()).setValue(u);
 
                             limpiarCajas();
                         }
@@ -221,7 +224,7 @@ public class ingresarUsuarios extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Usuario u = new Usuario ();
-                        u.setUid(usuarioSeleccionado.getUid());
+                        u.setRut(usuarioSeleccionado.getRut());
                         u.setNombre(nomUsuario.getText().toString().trim());
                         u.setApellido(apeUsuario.getText().toString().trim());
                         u.setCorreo(corUsuario.getText().toString().trim());
@@ -235,7 +238,7 @@ public class ingresarUsuarios extends AppCompatActivity {
                                 u.setHogar(h);
                             }
                         }
-                        databaseReference.child("Usuario").child(u.getUid()).setValue(u);
+                        databaseReference.child("Usuario").child(u.getRut()).setValue(u);
                         Toast.makeText(ingresarUsuarios.this,"Guardar", Toast.LENGTH_LONG).show();
                         limpiarCajas();
                     }
@@ -251,8 +254,8 @@ public class ingresarUsuarios extends AppCompatActivity {
 
             case R.id.icon_delete:{
                 Usuario u = new Usuario();
-                u.setUid(usuarioSeleccionado.getUid());
-                databaseReference.child("Usuario").child(u.getUid()).removeValue();
+                u.setRut(usuarioSeleccionado.getRut());
+                databaseReference.child("Usuario").child(u.getRut()).removeValue();
                 Toast.makeText(this,"Eliminar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
                 break;
@@ -280,6 +283,7 @@ public class ingresarUsuarios extends AppCompatActivity {
         corUsuario.setText("");
         passUsuario.setText("");
         telUsuario.setText("");
+        rutUsuario.setText("");
         dirUsuario.setText("");
         spinnerHogar.setSelection(0);
         spinnerTipo.setSelection(0);
@@ -289,13 +293,16 @@ public class ingresarUsuarios extends AppCompatActivity {
 
         String nombre = nomUsuario.getText().toString();
         String apellido = apeUsuario.getText().toString();
+        String rut= rutUsuario.getText().toString();
         String correo = corUsuario.getText().toString();
         String password = passUsuario.getText().toString();
         String telefono = telUsuario.getText().toString();
         String direccion = dirUsuario.getText().toString();
 
-
-        if (nombre.equals("")){
+        if (rut.equals("")){
+            rutUsuario.setError("Requerido");
+        }
+        else if (nombre.equals("")){
             nomUsuario.setError("Requerido");
         }
         else if (apellido.equals("")){
