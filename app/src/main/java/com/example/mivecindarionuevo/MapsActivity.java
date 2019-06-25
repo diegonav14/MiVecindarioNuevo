@@ -1,13 +1,13 @@
 package com.example.mivecindarionuevo;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 
 import com.example.mivecindarionuevo.modelos.Hogar;
 import com.example.mivecindarionuevo.modelos.Usuario;
@@ -35,6 +35,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     Usuario usuarioActual;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

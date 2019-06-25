@@ -55,13 +55,13 @@ public class iniciarSesion extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    } // Carga la sesion del usuario
+    }
 
     private void incializarFirebase() {
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    } // Inicializa la conexion con la base de datos, en este caso Firebase
+    }
 
     public void IniciarSesion (View v) {
 
@@ -84,9 +84,39 @@ public class iniciarSesion extends AppCompatActivity {
                         editor.commit();
                         startActivity(intentAdmin);
                         finish();
-                    }else{
-                        editTextCorreo.setError("Correo incorrecto");
-                        editTextPass.setError("Contraseña incorrecta");
+                    }else {
+                        databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String correo = editTextCorreo.getText().toString();
+                                String pass = editTextPass.getText().toString();
+                                Usuario user;
+
+                                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                                    user = objSnapshot.getValue(Usuario.class);
+                                    editTextCorreo.setError(null);
+                                    editTextPass.setError(null);
+                                    if (correo.equals(user.getCorreo()) && pass.equals(user.getPassword())) {
+                                        Intent intent = new Intent(iniciarSesion.this, MapsActivity.class);
+                                        SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = preferencias.edit();
+                                        editor.putString("nombreUsuario", user.getNombre());
+                                        editor.putString("apellidoUsuario", user.getApellido());
+                                        editor.putString("tipoUsuario", user.getTipo());
+                                        editor.commit();
+                                        startActivity(intent);
+                                        finish();
+                                    }else{
+                                        editTextCorreo.setError("Correo incorrecto");
+                                        editTextPass.setError("Contraseña incorrecta");
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 }
                 editTextPass.setError(null);
@@ -99,43 +129,12 @@ public class iniciarSesion extends AppCompatActivity {
             }
         });
 
-        databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String correo = editTextCorreo.getText().toString();
-                String pass = editTextPass.getText().toString();
-                Usuario user;
 
-                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
-                        user = objSnapshot.getValue(Usuario.class);
-                        editTextCorreo.setError(null);
-                        editTextPass.setError(null);
-                    if (correo.equals(user.getCorreo()) && pass.equals(user.getPassword())) {
-                        Intent intent = new Intent(iniciarSesion.this, MapsActivity.class);
-                        SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferencias.edit();
-                        editor.putString("nombreUsuario", user.getNombre());
-                        editor.putString("apellidoUsuario", user.getApellido());
-                        editor.putString("tipoUsuario", user.getTipo());
-                        editor.commit();
-                        startActivity(intent);
-                        finish();
-                    }else{
-                        editTextCorreo.setError("Correo incorrecto");
-                        editTextPass.setError("Contraseña incorrecta");
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    } // Valida la sesion del usuario y la redirige a su debida pagina
+    }
 
     public void irContacto(View v){
         Intent intent = new Intent(iniciarSesion.this, contacto.class);
         startActivity(intent);
-    } // Inicia la vista (Activity) Contacto
+    }
 
 }
