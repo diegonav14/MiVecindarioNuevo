@@ -300,4 +300,46 @@
         app:layout_constraintTop_toTopOf="@+id/txt_miPerfil"
         app:layout_constraintVertical_bias="0.44" />
 
+    <Button
+        android:id="@+id/btn_agregarAlarma"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="117dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorAccent"
+        android:text="@string/agregar_alarma"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_miPerfil"
+        app:layout_constraintVertical_bias="0.801" />
+
+    <Button
+        android:id="@+id/btn_desactivarAlarma"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="112dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/design_default_color_primary"
+        android:text="@string/desactivar_alarma"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.905" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,7 +23,6 @@ public class inicioAdmin extends AppCompatActivity {
     Toolbar toolbar;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +34,7 @@ public class inicioAdmin extends AppCompatActivity {
 
         cargarPreferencias();
         incializarFirebase();
+
     }
 
 

@@ -8,13 +8,8 @@ public class Administrador {
     private String correo;
     private String password;
 
-
-
-
-
     public Administrador(){
     }
-
 
     public String getUid() {
         return uid;

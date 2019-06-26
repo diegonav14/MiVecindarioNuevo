@@ -102,7 +102,6 @@ public class editarHogar extends AppCompatActivity {
             String idusuario;
             String hogarUsuario;
 
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Hogar h = new Hogar();
@@ -119,6 +118,7 @@ public class editarHogar extends AppCompatActivity {
                             h.setDireccion(direccion);
                             h.setComentario(comentario);
                             h.setUid(hogarUsuario);
+                            h.setAlarma(null);
                             h.setLatitud(u.getHogar().getLatitud());
                             h.setLongitud(u.getHogar().getLongitud());
                             h.setVecindario(u.getHogar().getVecindario());

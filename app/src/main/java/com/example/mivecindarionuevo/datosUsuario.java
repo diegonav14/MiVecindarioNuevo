@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mivecindarionuevo.modelos.Hogar;
 import com.example.mivecindarionuevo.modelos.Usuario;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,19 +33,28 @@ public class datosUsuario extends AppCompatActivity {
 
     TextView txt_miNombre,txt_miApellido,txt_miDireccion,txt_miTelefono, txt_miCorreo;
 
+    Button btn_alarma, btn_desactivarAlarma;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+
+    ValueEventListener valueEventListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datos_usuario);
+        incializarFirebase();
+
         nomUsuario=findViewById(R.id.et_nombreUsuarioM);
         apeUsuario=findViewById(R.id.et_apellidoUsuarioM);
         corUsuario=findViewById(R.id.et_correoUsuarioM);
         passUsuario=findViewById(R.id.et_passUsuarioM);
         telUsuario=findViewById(R.id.et_telefonoUsuarioM);
         dirUsuario=findViewById(R.id.et_direccionUsuarioM);
+        btn_alarma=findViewById(R.id.btn_agregarAlarma);
+        btn_desactivarAlarma=findViewById(R.id.btn_desactivarAlarma);
         txt_miNombre=findViewById(R.id.txt_miNombre);
         txt_miApellido=findViewById(R.id.txt_miApellido);
         txt_miDireccion=findViewById(R.id.txt_miDireccion);
@@ -53,10 +64,93 @@ public class datosUsuario extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        incializarFirebase();
         cargarPreferencias();
         mostrarMisDatos();
+
+        btn_desactivarAlarma.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                databaseReference.child("Usuario").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    String hogarUsuario;
+                    String idusuario;
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Hogar h = new Hogar();
+                        for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                            Usuario u = objSnapshot.getValue(Usuario.class);
+                            if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)) {
+                                hogarUsuario = u.getHogar().getUid();
+                                idusuario = u.getRut();
+                                h.setNombre(u.getHogar().getNombre());
+                                h.setDireccion(u.getHogar().getDireccion());
+                                h.setComentario(u.getHogar().getComentario());
+                                h.setUid(hogarUsuario);
+                                h.setAlarma(false);
+                                h.setLatitud(u.getHogar().getLatitud());
+                                h.setLongitud(u.getHogar().getLongitud());
+                                h.setVecindario(u.getHogar().getVecindario());
+                            }
+                        }
+                        databaseReference.child("Hogar").child(hogarUsuario).setValue(h);
+                        databaseReference.child("Usuario").child(idusuario).child("hogar").setValue(h);
+                        Intent intent = new Intent(datosUsuario.this, MapsActivity.class);
+                        startActivity(intent);
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+        btn_alarma.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                databaseReference.child("Usuario").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    String hogarUsuario;
+                    String idusuario;
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Hogar h = new Hogar();
+                        for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                            Usuario u = objSnapshot.getValue(Usuario.class);
+                            if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)) {
+                                hogarUsuario = u.getHogar().getUid();
+                                idusuario = u.getRut();
+                                h.setNombre(u.getHogar().getNombre());
+                                h.setDireccion(u.getHogar().getDireccion());
+                                h.setComentario(u.getHogar().getComentario());
+                                h.setUid(hogarUsuario);
+                                h.setAlarma(true);
+                                h.setLatitud(u.getHogar().getLatitud());
+                                h.setLongitud(u.getHogar().getLongitud());
+                                h.setVecindario(u.getHogar().getVecindario());
+                            }
+                        }
+                        databaseReference.child("Hogar").child(hogarUsuario).setValue(h);
+                        databaseReference.child("Usuario").child(idusuario).child("hogar").setValue(h);
+                        Intent intent = new Intent(datosUsuario.this, MapsActivity.class);
+                        startActivity(intent);
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
     }
+
 
     public void mostrarMisDatos(){
         databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {

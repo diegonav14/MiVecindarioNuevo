@@ -67,16 +67,17 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ingresarEvento"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".editarHogar"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".datosUsuario"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".administrador.inicioAdmin"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".administrador.ingresarVecindario"
             android:screenOrientation="portrait" />

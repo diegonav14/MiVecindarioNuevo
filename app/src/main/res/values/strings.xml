@@ -45,6 +45,8 @@
     <string name="title_activity_maps_admin">Map</string>
     <string name="rut">Rut</string>
     <string name="ver_mapa_vecindario">Ver mapa vecindario</string>
+    <string name="agregar_alarma">Activar alarma</string>
+    <string name="desactivar_alarma">Desactivar alarma</string>
 
 
 </resources>

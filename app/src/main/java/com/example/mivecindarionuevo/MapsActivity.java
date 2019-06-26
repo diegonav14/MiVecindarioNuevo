@@ -136,11 +136,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                     Hogar h = objSnapshot.getValue(Hogar.class);
                     if (usuarioActual.getHogar().getVecindario().getNombre().equals(h.getVecindario().getNombre())){
+                        mMap.clear();
                         double latitud = Double.parseDouble(h.getLatitud());
                         double longitud = Double.parseDouble(h.getLongitud());
                         LatLng padreHurtado = new LatLng(latitud,longitud);
-                        mMap.addMarker(new MarkerOptions().position(padreHurtado).title(h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casmarket_round)));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                        if (!h.getAlarma()){
+                            mMap.addMarker(new MarkerOptions().position(padreHurtado).title(h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casmarket_round)));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                        }
+                        else if (h.getAlarma()){
+                            mMap.addMarker(new MarkerOptions().position(padreHurtado).title(h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_alarma_round)));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                        }
+
                     }
                 }
             }
