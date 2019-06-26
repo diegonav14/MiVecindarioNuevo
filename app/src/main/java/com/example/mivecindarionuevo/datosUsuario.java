@@ -70,7 +70,7 @@ public class datosUsuario extends AppCompatActivity {
         btn_desactivarAlarma.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) { // Este metodo se encarga de cambiar la alarma a apagada, Parametro entrada; Boolean Parametro salida: Hogar
                 databaseReference.child("Usuario").addListenerForSingleValueEvent(new ValueEventListener() {
 
                     String hogarUsuario;
@@ -108,7 +108,7 @@ public class datosUsuario extends AppCompatActivity {
             }
         });
 
-        btn_alarma.setOnClickListener(new View.OnClickListener() {
+        btn_alarma.setOnClickListener(new View.OnClickListener() {// Este metodo se encarga de cambiar la alarma a encendida, Parametro entrada; Boolean Parametro salida: Hogar
 
             @Override
             public void onClick(View view) {
