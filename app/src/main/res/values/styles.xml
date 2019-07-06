@@ -15,7 +15,7 @@
 
     <style name="MyEditText" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">#020202</item>
-        <item name="colorControlActivated">#020202</item>
+        <item name="colorControlActivated"></item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
