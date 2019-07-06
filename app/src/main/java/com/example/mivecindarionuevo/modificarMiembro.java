@@ -52,7 +52,8 @@ public class modificarMiembro extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,R.array.Tipo, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(
+                this,R.array.Tipo, android.R.layout.simple_spinner_dropdown_item);
         spinnerTipo.setAdapter(adapterSpinner);
 
         inicializarFirebase();
@@ -89,7 +90,9 @@ public class modificarMiembro extends AppCompatActivity {
             }
         });
 
-    } // Trae los datos de los miembros que conforman el hogar y los muestra en los campos de datos, Parametro salida; String
+    }
+
+    // Trae los datos de los miembros que conforman el hogar y los muestra en los campos de datos, Parametro salida; String
 
     public void modificarDatosMiembro(View view){
 
@@ -106,7 +109,9 @@ public class modificarMiembro extends AppCompatActivity {
                 String direccion = et_direccionMiembro.getText().toString();
                 String tipo = spinnerTipo.getSelectedItem().toString();
 
-                if (nombre.equals("") || apellido.equals("") || correo.equals("") || password.equals("") || telefono.equals("") || direccion.equals("") || tipo.equals("Tipo")){
+                if (nombre.equals("") || apellido.equals("") ||
+                        correo.equals("") || password.equals("") ||
+                        telefono.equals("") || direccion.equals("") || tipo.equals("Tipo")){
                     validacion();
                 }
                 else{
@@ -140,7 +145,8 @@ public class modificarMiembro extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_usuario,menu);
         return super.onCreateOptionsMenu(menu);
-    } // Setea el menu en el objeto Toolbar
+    }
+    // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

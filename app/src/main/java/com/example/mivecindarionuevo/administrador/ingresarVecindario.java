@@ -49,6 +49,7 @@ public class ingresarVecindario extends AppCompatActivity {
     Toolbar toolbar;
 
     String uidVecindario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +94,9 @@ public class ingresarVecindario extends AppCompatActivity {
         editorMapa.apply();
         Intent intent = new Intent(this,MapsActivityAdmin.class);
         startActivity(intent);
-    } // Crea un dato compartido que contiene la id del Vecindario que se mostrara en el mapa, Parametro entrada: String, Parametro salida: String
+    }
+
+    // Crea un dato compartido que contiene la id del Vecindario que se mostrara en el mapa, Parametro entrada: String, Parametro salida: String
 
     private void listarDatos() {
         databaseReference.child("Vecindario").addValueEventListener(new ValueEventListener() {
@@ -103,7 +106,9 @@ public class ingresarVecindario extends AppCompatActivity {
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                     Vecindario v = objSnapshot.getValue(Vecindario.class);
                     listaVecindario.add(v);
-                    arrayAdapterVecindario = new ArrayAdapter<Vecindario>(ingresarVecindario.this, android.R.layout.simple_list_item_1, listaVecindario);
+                    arrayAdapterVecindario = new ArrayAdapter<Vecindario>
+                            (ingresarVecindario.this,
+                                    android.R.layout.simple_list_item_1, listaVecindario);
                     listV_vecindario.setAdapter(arrayAdapterVecindario);
                 }
 
@@ -114,13 +119,17 @@ public class ingresarVecindario extends AppCompatActivity {
 
             }
         });
-    } // Listar los vecindarios que estan en la base de datos, Parametro entrada: Vecidario, Parametro salida: List
+    }
+
+    // Listar los vecindarios que estan en la base de datos, Parametro entrada: Vecidario, Parametro salida: List
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return super.onCreateOptionsMenu(menu);
-    } // Setea el menu en el objeto Toolbar
+    }
+
+    // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -150,7 +159,9 @@ public class ingresarVecindario extends AppCompatActivity {
                     limpiarCajas();
                 }
                 break;
-            } // Ingresa un objeto Vecindario en la base de datos, Parametro entrada: String, Parametro salida: Vecindario
+            }
+
+            // Ingresa un objeto Vecindario en la base de datos, Parametro entrada: String, Parametro salida: Vecindario
 
             case R.id.icon_save:{
                 Vecindario v = new Vecindario ();
@@ -163,7 +174,9 @@ public class ingresarVecindario extends AppCompatActivity {
                 Toast.makeText(this,"Guardar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
                 break;
-            } // Modifica el objeto Vecindario seleccionado, Parametro entrada: String, Parametro salida: Vecindario
+            }
+
+            // Modifica el objeto Vecindario seleccionado, Parametro entrada: String, Parametro salida: Vecindario
 
             case R.id.icon_delete:{
                 Vecindario v = new Vecindario ();
@@ -172,7 +185,9 @@ public class ingresarVecindario extends AppCompatActivity {
                 Toast.makeText(this,"Eliminar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
                 break;
-            } // Elimina el objeto Vecindario seleccionado de la base de datos.
+            }
+
+            // Elimina el objeto Vecindario seleccionado de la base de datos.
 
             case R.id.icon_login:{
                 SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -182,7 +197,9 @@ public class ingresarVecindario extends AppCompatActivity {
                 Intent intent = new Intent(this, com.example.mivecindarionuevo.iniciarSesion.class);
                 startActivity(intent);
                 finish();
-            } // Cierra la sesion del usuario
+            }
+
+            // Cierra la sesion del usuario
             default:break;
 
         }
@@ -196,7 +213,9 @@ public class ingresarVecindario extends AppCompatActivity {
         direccionVec.setText("");
         latitudVec.setText("");
         longitudVec.setText("");
-    } // Limpia los campos de datos
+    }
+
+    // Limpia los campos de datos
 
     private void validacion() {
 
@@ -215,17 +234,23 @@ public class ingresarVecindario extends AppCompatActivity {
         }else if (longitud.equals("")){
             longitudVec.setError("Requerido");
         }
-    } // Valida que los campos de datos no esten vacios
+    }
+
+    // Valida que los campos de datos no esten vacios
 
     private void cargarPreferencias() {
         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         String nmAdmin = preferencias.getString("nombreAdmin","NoSesion");
         String apAdmin = preferencias.getString("apellidoAdmin","NoSesion");
         toolbar.setSubtitle(nmAdmin+" "+apAdmin);
-    } // Carga la sesion del usuario
+    }
+
+    // Carga la sesion del usuario
 
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    } // Inicializa la conexion con la base de datos, en este caso Firebase
+    }
+
+    // Inicializa la conexion con la base de datos, en este caso Firebase
 }

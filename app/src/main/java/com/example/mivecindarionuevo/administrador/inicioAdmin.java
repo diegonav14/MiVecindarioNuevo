@@ -43,39 +43,53 @@ public class inicioAdmin extends AppCompatActivity {
         String nmAdmin = preferencias.getString("nombreAdmin","NoSesion");
         String apAdmin = preferencias.getString("apellidoAdmin","NoSesion");
         toolbar.setSubtitle(nmAdmin+" "+apAdmin);
-    } // Carga la sesion del usuario
+    }
+
+    // Carga la sesion del usuario
 
     public void irUsuario (View v){
         Intent intent = new Intent(inicioAdmin.this, ingresarUsuarios.class);
         startActivity(intent);
-    } // Inicia la vista(Activity) de Ingresar Usuarios
+    }
+
+    // Inicia la vista(Activity) de Ingresar Usuarios
 
     public void irVecindario (View v){
         Intent intent = new Intent(inicioAdmin.this, ingresarVecindario.class);
         startActivity(intent);
-    } // Inicia la vista(Activity) de Ingresar Vecindario
+    }
+
+    // Inicia la vista(Activity) de Ingresar Vecindario
 
     public void irHogares (View v){
         Intent intent = new Intent(inicioAdmin.this, agregarHogares.class);
         startActivity(intent);
-    } // Inicia la vista (Activity) Ingresar Hogares
+    }
+
+    // Inicia la vista (Activity) Ingresar Hogares
 
     public void irMapa (View v){
         Intent intent = new Intent (inicioAdmin.this, MapsActivityAdmin.class);
         startActivity(intent);
-    } // Inicia la vista (Activity) MapsActivityAdmin para ver los mapas de los vecindarios
+    }
+
+    // Inicia la vista (Activity) MapsActivityAdmin para ver los mapas de los vecindarios
 
     private void incializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         //firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
-    } // Inicia la conexion con la base de datos
+    }
+
+    // Inicia la conexion con la base de datos
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_admin,menu);
         return super.onCreateOptionsMenu(menu);
-    } // Setea el menu en el objeto Toolbar
+    }
+
+    // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

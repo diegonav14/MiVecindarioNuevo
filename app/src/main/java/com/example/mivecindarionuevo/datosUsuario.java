@@ -173,7 +173,9 @@ public class datosUsuario extends AppCompatActivity {
 
             }
         });
-    } // Muestra los datos del usuario que inicio sesion, Parametro salida: String
+    }
+
+    // Muestra los datos del usuario que inicio sesion, Parametro salida: String
 
     public void modificarDatosUsuario(View v) {
 
@@ -233,13 +235,17 @@ public class datosUsuario extends AppCompatActivity {
     private void incializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    } // Inicializa la base de datos, en este caso Firebase
+    }
+
+    // Inicializa la base de datos, en este caso Firebase
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_usuario,menu);
         return super.onCreateOptionsMenu(menu);
-    } // Setea el menu en el objeto Toolbar
+    }
+
+    // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -296,7 +302,9 @@ public class datosUsuario extends AppCompatActivity {
         passUsuario.setText("");
         telUsuario.setText("");
         dirUsuario.setText("");
-    } // Limpia los campos de datos
+    }
+
+    // Limpia los campos de datos
 
     private void validacion() {
 
@@ -328,13 +336,17 @@ public class datosUsuario extends AppCompatActivity {
         }
 
 
-    } // Valida que los campos de datos esten vacios
+    }
+
+    // Valida que los campos de datos esten vacios
 
     private void cargarPreferencias() {
         SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         nmUsuario = preferecias.getString("nombreUsuario","NoSesion");
         apUsuario = preferecias.getString("apellidoUsuario","NoSesion");
         toolbar.setSubtitle(nmUsuario+" "+apUsuario);
-    } // Carga la sesion del usuario.
+    }
+
+    // Carga la sesion del usuario.
 
 }

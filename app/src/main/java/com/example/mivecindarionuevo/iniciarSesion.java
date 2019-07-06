@@ -75,9 +75,12 @@ public class iniciarSesion extends AppCompatActivity {
                     Administrador admin = objSnapshot.getValue(Administrador.class);
                     editTextPass.setError(null);
                     editTextCorreo.setError(null);
-                    if (correoAdmin.equals(admin.getCorreo()) && passAdmin.equals(admin.getPassword())){
-                        Intent intentAdmin = new Intent(iniciarSesion.this, com.example.mivecindarionuevo.administrador.inicioAdmin.class);
-                        SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+                    if (correoAdmin.equals(admin.getCorreo()) && passAdmin.equals
+                            (admin.getPassword())){
+                        Intent intentAdmin = new Intent(iniciarSesion.
+                                this, com.example.mivecindarionuevo.administrador.inicioAdmin.class);
+                        SharedPreferences preferencias = getSharedPreferences(
+                                "sesion", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferencias.edit();
                         editor.putString("nombreAdmin", admin.getNombre());
                         editor.putString("apellidoAdmin",admin.getApellido());
@@ -85,7 +88,8 @@ public class iniciarSesion extends AppCompatActivity {
                         startActivity(intentAdmin);
                         finish();
                     }else {
-                        databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
+                        databaseReference.child("Usuario").addValueEventListener
+                                (new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String correo = editTextCorreo.getText().toString();
@@ -96,9 +100,12 @@ public class iniciarSesion extends AppCompatActivity {
                                     user = objSnapshot.getValue(Usuario.class);
                                     editTextCorreo.setError(null);
                                     editTextPass.setError(null);
-                                    if (correo.equals(user.getCorreo()) && pass.equals(user.getPassword())) {
-                                        Intent intent = new Intent(iniciarSesion.this, MapsActivity.class);
-                                        SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+                                    if (correo.equals(user.getCorreo()) && pass.equals(user.
+                                            getPassword())) {
+                                        Intent intent = new Intent(
+                                                iniciarSesion.this, MapsActivity.class);
+                                        SharedPreferences preferencias = getSharedPreferences
+                                                ("sesion", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = preferencias.edit();
                                         editor.putString("nombreUsuario", user.getNombre());
                                         editor.putString("apellidoUsuario", user.getApellido());

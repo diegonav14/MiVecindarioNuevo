@@ -66,8 +66,10 @@ public class ingresarUsuarios extends AppCompatActivity {
         spinnerHogar = findViewById(R.id.spHogar);
 
 
-        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,R.array.Tipo, android.R.layout.simple_spinner_dropdown_item);
-        ArrayAdapter<String> adapterSpinnerHogar = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, listaHogar);
+        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource
+                (this,R.array.Tipo, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapterSpinnerHogar = new ArrayAdapter<>
+                (this,android.R.layout.simple_spinner_dropdown_item, listaHogar);
 
         spinnerTipo.setAdapter(adapterSpinner);
         spinnerHogar.setAdapter(adapterSpinnerHogar);
@@ -106,7 +108,9 @@ public class ingresarUsuarios extends AppCompatActivity {
 
             }
         });
-    } // On create (Todos los atributos de las vistas)
+    }
+
+    // On create (Todos los atributos de las vistas)
 
     private void listarDatos() {
         databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
@@ -116,7 +120,9 @@ public class ingresarUsuarios extends AppCompatActivity {
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                     Usuario u = objSnapshot.getValue(Usuario.class);
                     listaUsuario.add(u);
-                    arrayAdapterUsuario = new ArrayAdapter<Usuario>(ingresarUsuarios.this, android.R.layout.simple_list_item_1, listaUsuario);
+                    arrayAdapterUsuario = new ArrayAdapter<Usuario>
+                            (ingresarUsuarios.this,
+                                    android.R.layout.simple_list_item_1, listaUsuario);
                     listV_usuarios.setAdapter(arrayAdapterUsuario);
                 }
 
@@ -127,7 +133,9 @@ public class ingresarUsuarios extends AppCompatActivity {
 
             }
         });
-    } // Lista los Usuarios que estan guardados en la base de datos, Parametro de entrada: Usuario, Parametro de salida: List
+    }
+
+    // Lista los Usuarios que estan guardados en la base de datos, Parametro de entrada: Usuario, Parametro de salida: List
 
     private void spinnerHogar (){
         databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
@@ -144,19 +152,25 @@ public class ingresarUsuarios extends AppCompatActivity {
 
             }
         });
-    } // Lista los Hogares que pueden ser seleccionados en un Spinner, Parametro de entrada: Hogar, Parametro de salida: List
+    }
+
+    // Lista los Hogares que pueden ser seleccionados en un Spinner, Parametro de entrada: Hogar, Parametro de salida: List
 
     private void incializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         //firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
-    } // Inicializa la conexion a la base de datos, en este caso Firebase
+    }
+
+    // Inicializa la conexion a la base de datos, en este caso Firebase
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return super.onCreateOptionsMenu(menu);
-    } // Setea en  menu en el objeto Toolbar
+    }
+
+    // Setea en  menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -180,8 +194,10 @@ public class ingresarUsuarios extends AppCompatActivity {
                         String direccion = dirUsuario.getText().toString();
                         String tipo = spinnerTipo.getSelectedItem().toString();
 
-                        if (nombre.equals("") || apellido.equals("") || correo.equals("") || password.equals("") || telefono.equals("") || rut.equals("") ||
-                                direccion.equals("") || tipo.equals("Tipo") || hogar.equals("Hogar") ){
+                        if (nombre.equals("") || apellido.equals("") || correo.equals("")
+                                || password.equals("") || telefono.equals("") || rut.equals("") ||
+                                direccion.equals("") || tipo.equals("Tipo")
+                                || hogar.equals("Hogar") ){
                             validacion();
                         }
                         else {
@@ -215,7 +231,9 @@ public class ingresarUsuarios extends AppCompatActivity {
                 });
 
                 break;
-            } // Ingresa un objeto Usuario a la base de datos, Parametro entrada: String, Hogar Parametro salida: Usuario
+            }
+
+            // Ingresa un objeto Usuario a la base de datos, Parametro entrada: String, Hogar Parametro salida: Usuario
 
             case R.id.icon_save:{
 
@@ -250,7 +268,9 @@ public class ingresarUsuarios extends AppCompatActivity {
                 });
 
                 break;
-            } // Modifica un objeto Usuario que se selccione de la lista de usuarios, Parametro entrada: String, Parametro salida: Usuario
+            }
+
+            // Modifica un objeto Usuario que se selccione de la lista de usuarios, Parametro entrada: String, Parametro salida: Usuario
 
             case R.id.icon_delete:{
                 Usuario u = new Usuario();
@@ -259,7 +279,9 @@ public class ingresarUsuarios extends AppCompatActivity {
                 Toast.makeText(this,"Eliminar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
                 break;
-            } // Elimina un objeto Usuario que se seleccione de la lista de usuarios.
+            }
+
+            // Elimina un objeto Usuario que se seleccione de la lista de usuarios.
 
             case R.id.icon_login:{
                 SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -269,7 +291,9 @@ public class ingresarUsuarios extends AppCompatActivity {
                 Intent intent = new Intent(this, com.example.mivecindarionuevo.iniciarSesion.class);
                 startActivity(intent);
                 finish();
-            } // Cierra la sesion del usuario
+            }
+
+            // Cierra la sesion del usuario
             default:break;
 
         }
@@ -287,7 +311,9 @@ public class ingresarUsuarios extends AppCompatActivity {
         dirUsuario.setText("");
         spinnerHogar.setSelection(0);
         spinnerTipo.setSelection(0);
-    } // Limpia los campos de datos
+    }
+
+    // Limpia los campos de datos
 
     private void validacion() {
 
@@ -327,12 +353,16 @@ public class ingresarUsuarios extends AppCompatActivity {
             Toast.makeText(this,"Debe seleccionar el Hogar", Toast.LENGTH_LONG).show();
         }
 
-    } // Valida que los campos de datos no esten vacios
+    }
+
+    // Valida que los campos de datos no esten vacios
 
     private void cargarPreferencias() {
         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         String nmAdmin = preferencias.getString("nombreAdmin","NoSesion");
         String apAdmin = preferencias.getString("apellidoAdmin","NoSesion");
         toolbar.setSubtitle(nmAdmin+" "+apAdmin);
-    } // Carga la sesion del usuario
+    }
+
+    // Carga la sesion del usuario
 }

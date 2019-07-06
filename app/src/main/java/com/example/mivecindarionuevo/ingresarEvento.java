@@ -78,7 +78,8 @@ public class ingresarEvento extends AppCompatActivity {
         txt_usuarioEvento = findViewById(R.id.txt_usuarioEventoSeleccionado);
         txt_fechaEvento = findViewById(R.id.txt_fechaEventoSeleccionado);
 
-        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,R.array.TipoEvento, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource
+                (this,R.array.TipoEvento, android.R.layout.simple_spinner_dropdown_item);
 
         tipoEvento.setAdapter(adapterSpinner);
 
@@ -99,13 +100,17 @@ public class ingresarEvento extends AppCompatActivity {
                 txt_comentarioEvento.setText(eventoSeleccionado.getComentario());
                 txt_tipoEvento.setText(eventoSeleccionado.getTipo());
                 txt_fechaEvento.setText(eventoSeleccionado.getFecha());
-                txt_usuarioEvento.setText(eventoSeleccionado.getUsuario().getNombre()+" "+eventoSeleccionado.getUsuario().getApellido());
-                arrayAdapteAsistente = new ArrayAdapter<>(ingresarEvento.this, android.R.layout.simple_list_item_1,eventoSeleccionado.getListaAsistentes());
+                txt_usuarioEvento.setText(eventoSeleccionado.getUsuario().getNombre()
+                        +" "+eventoSeleccionado.getUsuario().getApellido());
+                arrayAdapteAsistente = new ArrayAdapter<>(ingresarEvento.this,
+                        android.R.layout.simple_list_item_1,eventoSeleccionado.getListaAsistentes());
                 lv_asistentes.setAdapter(arrayAdapteAsistente);
                 btnAsistir.setVisibility(View.VISIBLE);
 
                 for (int i = 0 ; i < eventoSeleccionado.getListaAsistentes().size(); i++){
-                    if (eventoSeleccionado.getListaAsistentes().get(i).getNombre().equals(nmUsuario) && eventoSeleccionado.getListaAsistentes().get(i).getApellido().equals(apUsuario)){
+                    if (eventoSeleccionado.getListaAsistentes().get(i).getNombre()
+                            .equals(nmUsuario) && eventoSeleccionado.getListaAsistentes()
+                            .get(i).getApellido().equals(apUsuario)){
                         btnAsistir.setVisibility(View.GONE);
                     }
                 }
@@ -122,8 +127,10 @@ public class ingresarEvento extends AppCompatActivity {
                     if (nmUsuario.equals(u.getNombre()) && apUsuario.equals(u.getApellido())){
                         eventoSeleccionado.getListaAsistentes().add(u);
                     }
-                    databaseReference.child("Evento").child(eventoSeleccionado.getUid()).setValue(eventoSeleccionado);
-                    arrayAdapteAsistente = new ArrayAdapter<>(ingresarEvento.this, android.R.layout.simple_list_item_1,eventoSeleccionado.getListaAsistentes());
+                    databaseReference.child("Evento").child(eventoSeleccionado.getUid())
+                            .setValue(eventoSeleccionado);
+                    arrayAdapteAsistente = new ArrayAdapter<>(ingresarEvento.this,
+                            android.R.layout.simple_list_item_1,eventoSeleccionado.getListaAsistentes());
                     lv_asistentes.setAdapter(arrayAdapteAsistente);
                     btnAsistir.setVisibility(View.GONE);
                 }
@@ -134,7 +141,9 @@ public class ingresarEvento extends AppCompatActivity {
 
             }
         });
-    } // Agrega el objeto Usuario en una lista que sera tratada como los Participantes del evento, Parametro entrada: Usuario, Parametro salida: List
+    }
+
+    // Agrega el objeto Usuario en una lista que sera tratada como los Participantes del evento, Parametro entrada: Usuario, Parametro salida: List
 
 
     private void tiposUsuarios(){
@@ -211,7 +220,9 @@ public class ingresarEvento extends AppCompatActivity {
 
             }
         });
-    } // Ingresa un Evento a la base de datos, Parametro entrada: String, Parametro salida: Evento
+    }
+
+    // Ingresa un Evento a la base de datos, Parametro entrada: String, Parametro salida: Evento
 
     private void listarDatos() {
 
@@ -237,9 +248,11 @@ public class ingresarEvento extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                     Evento e = objSnapshot.getValue(Evento.class);
-                    if (usuarioActual.getHogar().getVecindario().getNombre().equals(e.getUsuario().getHogar().getVecindario().getNombre())){
+                    if (usuarioActual.getHogar().getVecindario().getNombre().equals(e.getUsuario()
+                            .getHogar().getVecindario().getNombre())){
                         listaEventos.add(e);
-                        arrayAdapteEvento = new ArrayAdapter<Evento>(ingresarEvento.this, android.R.layout.simple_list_item_1, listaEventos);
+                        arrayAdapteEvento = new ArrayAdapter<Evento>(ingresarEvento.this,
+                                android.R.layout.simple_list_item_1, listaEventos);
                         lv_Eventos.setAdapter(arrayAdapteEvento);
                     }
                 }
@@ -249,13 +262,17 @@ public class ingresarEvento extends AppCompatActivity {
 
             }
         });
-    } // Lista los eventos que estan en la base de datos, Parametro salida: List
+    }
+
+    // Lista los eventos que estan en la base de datos, Parametro salida: List
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_usuario,menu);
         return super.onCreateOptionsMenu(menu);
-    } // Setea el menu en el objeto Toolbar
+    }
+
+    // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -317,7 +334,9 @@ public class ingresarEvento extends AppCompatActivity {
         }else if (fecha.equals("")) {
             fechaEvento.setError("Requerido");
         }
-    } // Valida que los campos de datos no esten vacios
+    }
+
+    // Valida que los campos de datos no esten vacios
 
     private void limpiarCajas() {
 

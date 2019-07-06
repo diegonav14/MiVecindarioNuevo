@@ -167,7 +167,8 @@ public class editarHogar extends AppCompatActivity {
                     Usuario u = objSnapshot.getValue(Usuario.class);
                     if (usuarioActual.getHogar().getUid().equals(u.getHogar().getUid())){
                         listaMiembros.add(u);
-                        arrayAdapteMiembro = new ArrayAdapter<Usuario>(editarHogar.this, android.R.layout.simple_list_item_1, listaMiembros);
+                        arrayAdapteMiembro = new ArrayAdapter<Usuario>(editarHogar.this,
+                                android.R.layout.simple_list_item_1, listaMiembros);
                         lv_miembrosHogar.setAdapter(arrayAdapteMiembro);
                     }
                 }
@@ -185,7 +186,9 @@ public class editarHogar extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_usuario,menu);
         return super.onCreateOptionsMenu(menu);
-    } // Setea el menu en el objeto Toolbar
+    }
+
+    // Setea el menu en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -240,7 +243,9 @@ public class editarHogar extends AppCompatActivity {
         apUsuario = preferecias.getString("apellidoUsuario","NoSesion");
         tipoUsuario = preferecias.getString("tipoUsuario","NoSesion");
         toolbar.setSubtitle(nmUsuario+" "+apUsuario);
-    } // Carga la sesion del usuario.
+    }
+
+    // Carga la sesion del usuario.
 
     private void validacion() {
 
@@ -256,7 +261,9 @@ public class editarHogar extends AppCompatActivity {
             direccionHogar.setError("Requerido");
         }
 
-    } // Valida que los campos de datos no esten vacios
+    }
+
+    // Valida que los campos de datos no esten vacios
 
     private void limpiarCajas() {
 
@@ -264,7 +271,9 @@ public class editarHogar extends AppCompatActivity {
         nombreHogar.setText("");
         direccionHogar.setText("");
 
-    } // Limpia los campos de datos
+    }
+
+    // Limpia los campos de datos
 
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();

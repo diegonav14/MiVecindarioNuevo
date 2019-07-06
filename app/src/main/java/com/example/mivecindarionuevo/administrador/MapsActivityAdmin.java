@@ -50,12 +50,16 @@ public class MapsActivityAdmin extends FragmentActivity implements OnMapReadyCal
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    } // Inicializa la conexion con la base de datos, en este caso Firebase
+    }
+
+    // Inicializa la conexion con la base de datos, en este caso Firebase
 
     private void cargarPreferencias() {
         SharedPreferences mapauid = getSharedPreferences("mapaUid", Context.MODE_PRIVATE);
         uidMapa = mapauid.getString("mapaUid","NoUid");
-    } // Carga la sesion del usuario
+    }
+
+    // Carga la sesion del usuario
 
 
     /**
@@ -67,14 +71,18 @@ public class MapsActivityAdmin extends FragmentActivity implements OnMapReadyCal
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         googleMap.setMinZoomPreference(17.0f);
         agregarMarcadores(googleMap);
-        // Add a marker in Sydney and move the camera
-    } // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
+
+    }
+
+    // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
 
 
     public void agregarMarcadores(GoogleMap googleMap){
@@ -91,7 +99,10 @@ public class MapsActivityAdmin extends FragmentActivity implements OnMapReadyCal
                         double latitud = Double.parseDouble(h.getLatitud());
                         double longitud = Double.parseDouble(h.getLongitud());
                         LatLng padreHurtado = new LatLng(latitud,longitud);
-                        mMap.addMarker(new MarkerOptions().position(padreHurtado).title(h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casmarket_round)));
+                        mMap.addMarker(new MarkerOptions().position(padreHurtado).title
+                                (h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()).
+                                icon(BitmapDescriptorFactory.fromResource(R.drawable.
+                                        ic_casmarket_round)));
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
                     }
                 }
@@ -105,6 +116,8 @@ public class MapsActivityAdmin extends FragmentActivity implements OnMapReadyCal
 
 
 
-    } // Metodo que crea los marcadores de los hogares del vecindario
+    }
+
+    // Metodo que crea los marcadores de los hogares del vecindario
 
 }

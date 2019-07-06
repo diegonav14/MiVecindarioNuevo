@@ -105,7 +105,7 @@ public class agregarHogares extends AppCompatActivity {
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-    } //Inicia la conexion con la base de datos o en este caso con Firebase
+    }//Inicia la conexion con la base de datos o en este caso con Firebase
 
     private void listarDatos() {
         databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
@@ -115,7 +115,8 @@ public class agregarHogares extends AppCompatActivity {
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                     Hogar h = objSnapshot.getValue(Hogar.class);
                     listaHogares.add(h);
-                    arrayAdapterHogar = new ArrayAdapter<Hogar>(agregarHogares.this, android.R.layout.simple_list_item_1, listaHogares);
+                    arrayAdapterHogar = new ArrayAdapter<Hogar>(agregarHogares.this,
+                            android.R.layout.simple_list_item_1, listaHogares);
                     listV_hogar.setAdapter(arrayAdapterHogar);
                 }
 
@@ -126,7 +127,7 @@ public class agregarHogares extends AppCompatActivity {
 
             }
         });
-    } // Lista los hogares que se han creado, Parametro de salida: Objeto Hogar
+    }// Lista los hogares que se han creado, Parametro de salida: Objeto Hogar
 
     private void spinnerVecindario (){
         databaseReference.child("Vecindario").addValueEventListener(new ValueEventListener() {
@@ -143,14 +144,14 @@ public class agregarHogares extends AppCompatActivity {
 
             }
         });
-    } //Lista los Vecindarios que estan disponibles en un Spinner, Parametro de salida: String
+    }//Lista los Vecindarios que estan disponibles en un Spinner, Parametro de salida: String
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         getSupportActionBar().setTitle("MiVecindario");
         return super.onCreateOptionsMenu(menu);
-    } // Setea el menu que se mostrara en el objeto Toolbar
+    }// Setea el menu que se mostrara en el objeto Toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -160,7 +161,8 @@ public class agregarHogares extends AppCompatActivity {
 
             case R.id.icon_add:{
 
-                databaseReference.child("Vecindario").addValueEventListener(new ValueEventListener() {
+                databaseReference.child("Vecindario").addValueEventListener
+                        (new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -171,7 +173,9 @@ public class agregarHogares extends AppCompatActivity {
                         String longitud= longitudHogar.getText().toString();
                         String vecindario = spinnerVecindario.getSelectedItem().toString();
 
-                        if (nombre.equals("") || direccion.equals("") || comentario.equals("") || latitud.equals("") || longitud.equals("") || vecindario.equals("Vecindario")){
+                        if (nombre.equals("") || direccion.equals("") || comentario.equals("")
+                                || latitud.equals("") || longitud.equals("") ||
+                                vecindario.equals("Vecindario")){
                             validacion();
                         }
                         else {
@@ -190,7 +194,8 @@ public class agregarHogares extends AppCompatActivity {
                                 }
                             }
                             databaseReference.child("Hogar").child(h.getUid()).setValue(h);
-                            Toast.makeText(agregarHogares.this, "Agregado", Toast.LENGTH_LONG).show();
+                            Toast.makeText(agregarHogares.this, "Agregado",
+                                    Toast.LENGTH_LONG).show();
                             limpiarCajas();
                         }
                     }
@@ -202,7 +207,9 @@ public class agregarHogares extends AppCompatActivity {
                 });
 
                 break;
-            } // Crea un objeto Hogar para guardarlo en la base de datos, Parametro de entrada: String, Parametro de salida: Hogar
+            }
+
+            // Crea un objeto Hogar para guardarlo en la base de datos, Parametro de entrada: String, Parametro de salida: Hogar
 
             case R.id.icon_save:{
 
@@ -235,7 +242,9 @@ public class agregarHogares extends AppCompatActivity {
                 });
 
                 break;
-            } // Modifica el objeto Hogar seleccionado, Parametro de entrada: String, Parametro de salida: Hogar
+            }
+
+            // Modifica el objeto Hogar seleccionado, Parametro de entrada: String, Parametro de salida: Hogar
 
             case R.id.icon_delete:{
                 Hogar h = new Hogar();
@@ -244,7 +253,9 @@ public class agregarHogares extends AppCompatActivity {
                 Toast.makeText(this,"Eliminar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
                 break;
-            } // Elimina el objeto Hogar seleccionado, Parametro salida: Hogar
+            }
+
+            // Elimina el objeto Hogar seleccionado, Parametro salida: Hogar
 
             case R.id.icon_login:{
                 SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -254,7 +265,9 @@ public class agregarHogares extends AppCompatActivity {
                 Intent intent = new Intent (this,com.example.mivecindarionuevo.iniciarSesion.class);
                 startActivity(intent);
                 finish();
-            } // Cierra la sesion del usuario
+            }
+
+            // Cierra la sesion del usuario
             default:break;
 
         }
@@ -282,7 +295,9 @@ public class agregarHogares extends AppCompatActivity {
         } else if (longitud.equals("")) {
             longitudHogar.setError("Requerido");
         }
-    } // Valida que los campos de datos no esten vacios
+    }
+
+    // Valida que los campos de datos no esten vacios
 
     private void limpiarCajas() {
 
@@ -293,12 +308,16 @@ public class agregarHogares extends AppCompatActivity {
         longitudHogar.setText("");
         spinnerVecindario.setSelection(0);
 
-    } // Limpia los campos de datos
+    }
+
+    // Limpia los campos de datos
 
     private void cargarPreferencias() {
         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         String nmAdmin = preferencias.getString("nombreAdmin","NoSesion");
         String apAdmin = preferencias.getString("apellidoAdmin","NoSesion");
         toolbar.setSubtitle(nmAdmin+" "+apAdmin);
-    } // Carga los datos de la sesion del usuario.
+    }
+
+    // Carga los datos de la sesion del usuario.
 }
