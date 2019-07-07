@@ -51,7 +51,7 @@ public class ingresarUsuarios extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ingresar_usuarios);
+        setContentView(R.layout.activity_admin_usuarios);
 
         listaHogar.add("Hogar");
 

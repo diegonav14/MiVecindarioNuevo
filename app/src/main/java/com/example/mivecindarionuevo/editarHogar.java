@@ -54,7 +54,7 @@ public class editarHogar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editar_hogar);
+        setContentView(R.layout.activity_usuario_hogar);
         inicializarFirebase();
 
         lv_miembrosHogar=findViewById(R.id.lv_miembrosHogar);

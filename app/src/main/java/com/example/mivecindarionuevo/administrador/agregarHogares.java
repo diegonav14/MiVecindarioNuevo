@@ -55,7 +55,7 @@ public class agregarHogares extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agregar_hogares);
+        setContentView(R.layout.activity_admin_hogares);
         inicializarFirebase();
 
         dirHogar=findViewById(R.id.et_direccionHogar);

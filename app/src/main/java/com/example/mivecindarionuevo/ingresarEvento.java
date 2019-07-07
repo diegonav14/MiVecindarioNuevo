@@ -65,7 +65,7 @@ public class ingresarEvento extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ingresar_evento);
+        setContentView(R.layout.activity_usuario_evento);
         comentarioEvento = findViewById(R.id.et_comentarioEvento);
         fechaEvento = findViewById(R.id.et_fechaEvento);
         tipoEvento = findViewById(R.id.spEvento);

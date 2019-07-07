@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_inicio"
+    android:orientation="horizontal"
+    tools:context=".datosUsuario">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-55dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+
+            <EditText
+                android:id="@+id/et_nombreUsuarioM"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="40dp"
+                android:ems="10"
+                android:gravity="start"
+                android:hint="@string/Nombre"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textAlignment="viewStart"
+                android:textColor="#F8030303"
+                android:textColorHint="#F8030303"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <EditText
+                android:id="@+id/et_apellidoUsuarioM"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/Apellido"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textColor="#F8030303"
+                android:textColorHint="#F8030303"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_nombreUsuarioM" />
+
+            <EditText
+                android:id="@+id/et_correoUsuarioM"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/Correo"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:paddingTop="15dp"
+                android:textColor="#F8030303"
+                android:textColorHint="#F8030303"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_telefonoUsuarioM" />
+
+
+            <EditText
+                android:id="@+id/et_passUsuarioM"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/Password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:paddingTop="15dp"
+                android:textColor="#F8030303"
+                android:textColorHint="#F8030303"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_correoUsuarioM"
+                tools:ignore="MissingConstraints" />
+
+
+            <EditText
+                android:id="@+id/et_telefonoUsuarioM"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/Telefono"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textColor="#F8030303"
+                android:textColorHint="#F8030303"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_apellidoUsuarioM" />
+
+
+            <Button
+                android:id="@+id/btnModificarUsuario"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:onClick="modificarDatosUsuario"
+                android:text="@string/modificar_mis_datos"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_passUsuarioM" />
+
+            <TextView
+                android:id="@+id/txt_misDatosActuales"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:text="@string/alarma_titulo"
+                android:textColor="#03521B"
+                android:textSize="22dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <TextView
+                android:id="@+id/txt_titulo_alarma"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:text="@string/mis_datos"
+                android:textColor="#03521B"
+                android:textSize="22dp"
+                app:layout_constraintStart_toEndOf="@+id/et_nombreUsuarioM"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <TextView
+                android:id="@+id/txt_miNombre"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                app:layout_constraintStart_toEndOf="@+id/et_nombreUsuarioM"
+                app:layout_constraintTop_toBottomOf="@+id/txt_titulo_alarma" />
+
+            <TextView
+                android:id="@+id/txt_miApellido"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                app:layout_constraintStart_toEndOf="@+id/et_apellidoUsuarioM"
+                app:layout_constraintTop_toBottomOf="@+id/txt_miNombre" />
+
+            <TextView
+                android:id="@+id/txt_miTelefono"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                app:layout_constraintStart_toEndOf="@+id/et_telefonoUsuarioM"
+                app:layout_constraintTop_toBottomOf="@+id/txt_miApellido" />
+
+            <TextView
+                android:id="@+id/txt_miCorreo"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                app:layout_constraintStart_toEndOf="@+id/et_correoUsuarioM"
+                app:layout_constraintTop_toBottomOf="@+id/txt_miTelefono" />
+
+            <Button
+                android:id="@+id/btn_agregarAlarma"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/colorAccent"
+                android:text="@string/agregar_alarma"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_misDatosActuales" />
+
+            <Button
+                android:id="@+id/btn_desactivarAlarma"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/design_default_color_primary"
+                android:text="@string/desactivar_alarma"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_agregarAlarma" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

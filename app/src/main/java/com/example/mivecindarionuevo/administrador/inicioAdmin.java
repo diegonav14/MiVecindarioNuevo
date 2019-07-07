@@ -26,7 +26,7 @@ public class inicioAdmin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio_admin);
+        setContentView(R.layout.activity_admin_inicio);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

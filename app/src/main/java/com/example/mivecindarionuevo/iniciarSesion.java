@@ -30,7 +30,7 @@ public class iniciarSesion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_iniciar_sesion);
+        setContentView(R.layout.activity_inicio);
         editTextCorreo = findViewById(R.id.et_correo);
         editTextPass = findViewById(R.id.et_pass);
 

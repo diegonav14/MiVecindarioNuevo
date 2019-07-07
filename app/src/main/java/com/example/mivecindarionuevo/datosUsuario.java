@@ -25,13 +25,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class datosUsuario extends AppCompatActivity {
 
-    EditText nomUsuario, apeUsuario, corUsuario, passUsuario, telUsuario, dirUsuario;
+    EditText nomUsuario, apeUsuario, corUsuario, passUsuario, telUsuario;
 
     String nmUsuario,apUsuario;
 
     Toolbar toolbar;
 
-    TextView txt_miNombre,txt_miApellido,txt_miDireccion,txt_miTelefono, txt_miCorreo;
+    TextView txt_miNombre,txt_miApellido,txt_miTelefono, txt_miCorreo;
 
     Button btn_alarma, btn_desactivarAlarma;
 
@@ -44,7 +44,7 @@ public class datosUsuario extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_datos_usuario);
+        setContentView(R.layout.activity_usuario_perfil);
         incializarFirebase();
 
         nomUsuario=findViewById(R.id.et_nombreUsuarioM);
@@ -52,12 +52,10 @@ public class datosUsuario extends AppCompatActivity {
         corUsuario=findViewById(R.id.et_correoUsuarioM);
         passUsuario=findViewById(R.id.et_passUsuarioM);
         telUsuario=findViewById(R.id.et_telefonoUsuarioM);
-        dirUsuario=findViewById(R.id.et_direccionUsuarioM);
         btn_alarma=findViewById(R.id.btn_agregarAlarma);
         btn_desactivarAlarma=findViewById(R.id.btn_desactivarAlarma);
         txt_miNombre=findViewById(R.id.txt_miNombre);
         txt_miApellido=findViewById(R.id.txt_miApellido);
-        txt_miDireccion=findViewById(R.id.txt_miDireccion);
         txt_miTelefono=findViewById(R.id.txt_miTelefono);
         txt_miCorreo=findViewById(R.id.txt_miCorreo);
 
@@ -85,7 +83,6 @@ public class datosUsuario extends AppCompatActivity {
                                 hogarUsuario = u.getHogar().getUid();
                                 idusuario = u.getRut();
                                 h.setNombre(u.getHogar().getNombre());
-                                h.setDireccion(u.getHogar().getDireccion());
                                 h.setComentario(u.getHogar().getComentario());
                                 h.setUid(hogarUsuario);
                                 h.setAlarma(false);
@@ -161,7 +158,6 @@ public class datosUsuario extends AppCompatActivity {
                     if (nmUsuario.equals(usuario.getNombre()) && apUsuario.equals(usuario.getApellido())) {
                         txt_miNombre.setText(usuario.getNombre());
                         txt_miApellido.setText(usuario.getApellido());
-                        txt_miDireccion.setText(usuario.getDireccion());
                         txt_miTelefono.setText(usuario.getTelefono());
                         txt_miCorreo.setText(usuario.getCorreo());
                     }
@@ -184,10 +180,9 @@ public class datosUsuario extends AppCompatActivity {
         String correo = corUsuario.getText().toString();
         String password = passUsuario.getText().toString();
         String telefono = telUsuario.getText().toString();
-        String direccion = dirUsuario.getText().toString();
 
-        if (nombre.equals("") || apellido.equals("") || correo.equals("") || password.equals("") || telefono.equals("") ||
-                direccion.equals("")) {
+
+        if (nombre.equals("") || apellido.equals("") || correo.equals("") || password.equals("") || telefono.equals("")) {
             validacion();
         }
         else{
@@ -206,8 +201,8 @@ public class datosUsuario extends AppCompatActivity {
                             u.setCorreo(corUsuario.getText().toString());
                             u.setPassword(passUsuario.getText().toString());
                             u.setTelefono(telUsuario.getText().toString());
-                            u.setDireccion(dirUsuario.getText().toString());
                             u.setTipo(usuario.getTipo());
+                            u.setDireccion(null);
                             u.setHogar(usuario.getHogar());
                         }
                     }
@@ -301,7 +296,6 @@ public class datosUsuario extends AppCompatActivity {
         corUsuario.setText("");
         passUsuario.setText("");
         telUsuario.setText("");
-        dirUsuario.setText("");
     }
 
     // Limpia los campos de datos
@@ -313,7 +307,6 @@ public class datosUsuario extends AppCompatActivity {
         String correo = corUsuario.getText().toString();
         String password = passUsuario.getText().toString();
         String telefono = telUsuario.getText().toString();
-        String direccion = dirUsuario.getText().toString();
 
 
         if (nombre.equals("")){
@@ -330,9 +323,6 @@ public class datosUsuario extends AppCompatActivity {
         }
         else if (telefono.equals("")){
             telUsuario.setError("Requerido");
-        }
-        else if (direccion.equals("")){
-            dirUsuario.setError("Requerido");
         }
 
 
