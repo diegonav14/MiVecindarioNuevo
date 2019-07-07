@@ -9,199 +9,222 @@
     android:background="@drawable/fondo_inicio"
     tools:context=".ingresarEvento">
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-55dp"
+        tools:layout_editor_absoluteY="16dp">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="49dp" />
-
-        <LinearLayout
-            android:id="@+id/llRight"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@id/llLeft"
-            android:orientation="vertical"
-            android:layout_below="@id/toolbar"
-            android:layout_toRightOf="@id/llLeft">
+            android:layout_height="wrap_content">
 
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="81dp" />
 
             <TextView
                 android:id="@+id/txt_listaEvento"
-                android:layout_width="wrap_content"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
                 android:paddingLeft="15dp"
+
                 android:paddingTop="15dp"
                 android:paddingRight="15dp"
                 android:text="@string/eventos"
                 android:textColor="#03521B"
-
                 android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="150dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    >
-
-                    <ListView
-                        android:id="@+id/lv_eventos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="150dp"
-                        android:cacheColorHint="#000000">
-
-                    </ListView>
-
-                </LinearLayout>
-
-            </ScrollView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-
-                <EditText
-                    android:id="@+id/et_comentarioEvento"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/Comentario"
-                    android:inputType="textMultiLine"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="15dp"
-                    android:paddingRight="15dp"
-                    android:textColor="#000000" />
-
-
-                <EditText
-                    android:id="@+id/et_fechaEvento"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/Fecha"
-                    android:inputType="date"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="15dp"
-                    android:paddingRight="15dp"
-                    android:textColor="#000000" />
-
-
-                <Spinner
-                    android:id="@+id/spEvento"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="15dp"
-                    android:paddingRight="15dp">
-                </Spinner>
-
-                <Button
-                    android:id="@+id/btnEventos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/boton_estilo"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="15dp"
-
-                    android:paddingRight="15dp"
-                    android:text="@string/ingresar_evento"
-                    android:textAllCaps="false"
-                    android:textColor="#070000"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llLeft"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_alignStart="@id/llLeft"
-            android:orientation="vertical"
-            android:layout_alignLeft="@id/llLeft"
-            android:layout_below="@id/toolbar">
-
-
-                <TextView
-                    android:id="@+id/txt_comentarioEventoSeleccionado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="15dp"
-                    android:paddingRight="15dp"
-                    android:textSize="15sp"
-                    android:layout_gravity="center"
-                    />
-
-
-                <TextView
-                    android:id="@+id/txt_tipoEventoSeleccionado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="15dp"
-                    android:textSize="15sp"
-                    android:paddingRight="15dp"
-                    android:layout_gravity="center"
-                    />
-
-
-                <TextView
-                    android:id="@+id/txt_usuarioEventoSeleccionado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:textSize="15sp"
-                    android:paddingTop="15dp"
-                    android:paddingRight="15dp"
-                    android:layout_gravity="center"
-                    />
-
-                <TextView
-                    android:id="@+id/txt_fechaEventoSeleccionado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:textSize="15sp"
-                    android:paddingTop="15dp"
-                    android:paddingRight="15dp"
-                    android:layout_gravity="center"
-                    />
-
-
-            <Button
-                android:id="@+id/btnAsistir"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/participar"
-                android:onClick="participar"
-                android:layout_gravity="center"
-                android:visibility="invisible"/>
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
             <ListView
-                android:id="@+id/lv_asistentes"
-                android:layout_width="wrap_content"
-                android:background="@drawable/listas_estilo"
-                android:layout_height="wrap_content"
-                android:cacheColorHint="#000000">
+                android:id="@+id/lv_eventos"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:textColorHint="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_listaEvento">
 
             </ListView>
 
 
+            <EditText
+                android:id="@+id/et_comentarioEvento"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/Comentario"
+                android:inputType="textMultiLine"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
-        </LinearLayout>
-    </RelativeLayout>
+            <EditText
+                android:id="@+id/et_fechaEvento"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/Fecha"
+                android:inputType="date"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_comentarioEvento" />
+
+
+            <Spinner
+                android:id="@+id/spEvento"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:textColorHint="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_fechaEvento"></Spinner>
+
+            <Button
+                android:id="@+id/btnEventos"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/boton_estilo"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:text="@string/ingresar_evento"
+                android:textColor="#070000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spEvento" />
+
+
+            <TextView
+                android:id="@+id/txt_comentarioEventoSeleccionado"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:textColorHint="#000000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/lv_eventos"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+            <TextView
+                android:id="@+id/txt_tipoEventoSeleccionado"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:textColorHint="#000000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/lv_eventos"
+                app:layout_constraintTop_toBottomOf="@+id/txt_comentarioEventoSeleccionado" />
+
+
+            <TextView
+                android:id="@+id/txt_usuarioEventoSeleccionado"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:textColorHint="#000000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/lv_eventos"
+                app:layout_constraintTop_toBottomOf="@+id/txt_tipoEventoSeleccionado" />
+
+            <TextView
+                android:id="@+id/txt_fechaEventoSeleccionado"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:textColorHint="#000000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/lv_eventos"
+                app:layout_constraintTop_toBottomOf="@+id/txt_usuarioEventoSeleccionado" />
+
+
+            <Button
+                android:id="@+id/btnAsistir"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/boton_estilo"
+                android:onClick="participar"
+                android:text="@string/participar"
+                android:textColorHint="#000000"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/lv_eventos"
+                app:layout_constraintTop_toBottomOf="@+id/lv_asistentes" />
+
+            <ListView
+                android:id="@+id/lv_asistentes"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/listas_estilo"
+                android:cacheColorHint="#000000"
+                android:textColorHint="#000000"
+                app:layout_constraintEnd_toStartOf="@+id/lv_eventos"
+                app:layout_constraintTop_toBottomOf="@+id/txt_fechaEventoSeleccionado"></ListView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
