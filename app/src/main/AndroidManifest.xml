@@ -70,7 +70,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".editarHogar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".datosUsuario"
             android:screenOrientation="landscape" />
