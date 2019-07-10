@@ -1,13 +1,13 @@
 package com.example.mivecindarionuevo;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.mivecindarionuevo.modelos.Hogar;
 import com.example.mivecindarionuevo.modelos.Usuario;
@@ -142,10 +142,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         double latitud = Double.parseDouble(h.getLatitud());
                         double longitud = Double.parseDouble(h.getLongitud());
                         LatLng padreHurtado = new LatLng(latitud,longitud);
-                        mMap.addMarker(new MarkerOptions().position(padreHurtado).title
-                                (h.getComentario()+" "+h.getDireccion()+" "+h.getNombre())
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casmarket_round)));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                        if (usuarioActual.getHogar().getAlarma()){
+                            mMap.addMarker(new MarkerOptions().position(padreHurtado).title
+                                    (h.getComentario()+" "+h.getDireccion()+" "+h.getNombre())
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_alarma_round)));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                        }else{
+                            mMap.addMarker(new MarkerOptions().position(padreHurtado).title
+                                    (h.getComentario()+" "+h.getDireccion()+" "+h.getNombre())
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casmarket_round)));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                        }
+
                     }
                 }
             }
