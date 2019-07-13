@@ -3,6 +3,8 @@ package com.example.mivecindarionuevo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -40,8 +42,23 @@ public class iniciarSesion extends AppCompatActivity {
 
         cargarPreferencias();
         incializarFirebase();
+        estadoInternet();
 
     }
+
+    private void estadoInternet (){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+        } else {
+            Intent intent = new Intent(this, estadoInternet.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+
 
     private void cargarPreferencias() {
 
@@ -143,5 +160,7 @@ public class iniciarSesion extends AppCompatActivity {
         Intent intent = new Intent(iniciarSesion.this, contacto.class);
         startActivity(intent);
     }
+
+
 
 }

@@ -3,6 +3,8 @@ package com.example.mivecindarionuevo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 
@@ -47,10 +49,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         inicializarFirebase();
         cargarPreferencias();
+        estadoInternet();
 
     }
 
+    private void estadoInternet (){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
+        if (networkInfo != null && networkInfo.isConnected()) {
+        } else {
+            Intent intent = new Intent(this, estadoInternet.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
 
     private void inicializarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();

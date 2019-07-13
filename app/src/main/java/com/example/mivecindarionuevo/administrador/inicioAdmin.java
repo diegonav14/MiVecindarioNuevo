@@ -34,8 +34,9 @@ public class inicioAdmin extends AppCompatActivity {
 
         cargarPreferencias();
         incializarFirebase();
-
     }
+
+
 
 
     private void cargarPreferencias() {
