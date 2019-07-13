@@ -23,41 +23,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/ed_correoContacto"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="8dp"
-        android:textColorHint="#86070707"
-        android:ems="10"
-        android:textColor="#FC070707"
-        android:textSize="25sp"
-        android:hint="@string/Correo"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_contacto" />
-
-    <EditText
         android:id="@+id/et_asunto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/asunto"
-        android:textColorHint="#86070707"
-        android:textColor="#FC070707"
-        android:textSize="25sp"
         android:inputType="textPersonName"
+        android:textColor="#FC070707"
+        android:textColorHint="#86070707"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ed_correoContacto" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/ed_mensajeContacto"
+        android:id="@+id/et_mensajeContacto"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginStart="8dp"
@@ -65,6 +49,7 @@
         android:layout_marginEnd="8dp"
         android:background="#FFFFFF"
         android:ems="10"
+        android:textColor="#000000"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +68,7 @@
         android:textColor="#012B02"
         android:textColorLink="#00BCD4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ed_mensajeContacto"
+        app:layout_constraintTop_toBottomOf="@id/et_mensajeContacto"
         android:layout_marginRight="30dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
