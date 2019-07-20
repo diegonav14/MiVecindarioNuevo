@@ -48,7 +48,8 @@
         <activity
             android:name=".administrador.MapsActivityAdmin"
             android:label="@string/title_activity_maps_admin" />
-        <activity android:name=".modificarMiembro" />
+        <activity android:name=".modificarMiembro"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"

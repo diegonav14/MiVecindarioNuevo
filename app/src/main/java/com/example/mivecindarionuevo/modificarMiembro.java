@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class modificarMiembro extends AppCompatActivity {
 
-    EditText et_nombreMiembro, et_apellidoMiembro, et_direccionMiembro, et_telefonoMiembro, et_correoMiembro, et_passwordMiembro;
+    EditText et_nombreMiembro, et_apellidoMiembro, et_telefonoMiembro, et_correoMiembro, et_passwordMiembro;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -43,7 +43,6 @@ public class modificarMiembro extends AppCompatActivity {
 
         et_nombreMiembro = findViewById(R.id.et_nombreMiembro);
         et_apellidoMiembro = findViewById(R.id.et_apellidoMiembro);
-        et_direccionMiembro = findViewById(R.id.et_direccionMiembro);
         et_telefonoMiembro = findViewById(R.id.et_telefonoMiembro);
         et_correoMiembro = findViewById(R.id.et_correoMiembro);
         et_passwordMiembro = findViewById(R.id.et_passwordMiembro);
@@ -72,7 +71,6 @@ public class modificarMiembro extends AppCompatActivity {
                     if (nombreMiembro.equals(u.getNombre()) && apellidoMiembro.equals(u.getApellido())){
                         et_nombreMiembro.setText(u.getNombre());
                         et_apellidoMiembro.setText(u.getApellido());
-                        et_direccionMiembro.setText(u.getDireccion());
                         et_telefonoMiembro.setText(u.getTelefono());
                         et_correoMiembro.setText(u.getCorreo());
                         et_passwordMiembro.setText(u.getPassword());
@@ -106,12 +104,11 @@ public class modificarMiembro extends AppCompatActivity {
                 String correo= et_correoMiembro.getText().toString();
                 String password= et_passwordMiembro.getText().toString();
                 String telefono = et_telefonoMiembro.getText().toString();
-                String direccion = et_direccionMiembro.getText().toString();
                 String tipo = spinnerTipo.getSelectedItem().toString();
 
                 if (nombre.equals("") || apellido.equals("") ||
                         correo.equals("") || password.equals("") ||
-                        telefono.equals("") || direccion.equals("") || tipo.equals("Tipo")){
+                        telefono.equals("")  || tipo.equals("Tipo")){
                     validacion();
                 }
                 else{
@@ -124,7 +121,6 @@ public class modificarMiembro extends AppCompatActivity {
                             u.setCorreo(correo);
                             u.setPassword(password);
                             u.setTelefono(telefono);
-                            u.setDireccion(direccion);
                             u.setTipo(tipo);
                             u.setHogar(u.getHogar());
                         }
@@ -210,7 +206,6 @@ public class modificarMiembro extends AppCompatActivity {
 
         String password = et_passwordMiembro.getText().toString();
         String nombre = et_nombreMiembro.getText().toString();
-        String direccion = et_direccionMiembro.getText().toString();
         String apellido = et_apellidoMiembro.getText().toString();
         String telefono = et_telefonoMiembro.getText().toString();
         String correo = et_correoMiembro.getText().toString();
@@ -221,9 +216,7 @@ public class modificarMiembro extends AppCompatActivity {
         else if (apellido.equals("")){
             et_apellidoMiembro.setError("Requerido");
         }
-        else if (direccion.equals("")){
-            et_direccionMiembro.setError("Requerido");
-        }
+
         else if (telefono.equals("")){
             et_telefonoMiembro.setError("Requerido");
         }
@@ -243,7 +236,6 @@ public class modificarMiembro extends AppCompatActivity {
 
         et_nombreMiembro.setText("");
         et_apellidoMiembro.setText("");
-        et_direccionMiembro.setText("");
         et_telefonoMiembro.setText("");
         et_correoMiembro.setText("");
         et_passwordMiembro.setText("");
