@@ -39,7 +39,7 @@ public class modificarMiembro extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modificar_miembro);
+        setContentView(R.layout.activity_usuario_modificar_miembro);
 
         et_nombreMiembro = findViewById(R.id.et_nombreMiembro);
         et_apellidoMiembro = findViewById(R.id.et_apellidoMiembro);
