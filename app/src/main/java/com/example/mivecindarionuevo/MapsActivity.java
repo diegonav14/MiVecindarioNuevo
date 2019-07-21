@@ -8,8 +8,10 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -29,7 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements  OnMapReadyCallback  {
 
     GoogleMap mMap;
 
@@ -38,7 +40,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     Button btnAlarma;
 
+    ImageView iv_seguridad, iv_bomberos, iv_mascotas, iv_ambulancia, iv_auto;
+
     String nmUsuario, apUsuario;
+
 
     Usuario usuarioActual;
 
@@ -58,15 +63,87 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-                builder.setMessage("Seleccione una alarma");
-                builder.setTitle("Alarmas");
+                LayoutInflater alarma_alerta = LayoutInflater.from(MapsActivity.this);
+                final View alerta = alarma_alerta.inflate(R.layout.alerta_alarmas,null);
+                builder.setView(alerta);
+                builder.setTitle("Seleccione alarma");
+
+                iv_ambulancia = alerta.findViewById(R.id.iv_ambulancia);
+                iv_auto = alerta.findViewById(R.id.iv_auto);
+                iv_bomberos = alerta.findViewById(R.id.iv_bomberos);
+                iv_mascotas = alerta.findViewById(R.id.iv_mascotas);
+                iv_seguridad = alerta.findViewById(R.id.iv_seguridad);
+
+                iv_ambulancia.setOnClickListener(new ImageView.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SharedPreferences tipo_alarma = getSharedPreferences("alarma", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = tipo_alarma.edit();
+                        editor.putString("tipoAlarma", "Ambulancia");
+                        editor.apply();
+                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        startActivity(intent);
+                    }
+                });
+
+                iv_auto.setOnClickListener(new ImageView.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SharedPreferences tipo_alarma = getSharedPreferences("alarma", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = tipo_alarma.edit();
+                        editor.putString("tipoAlarma", "Vehiculo");
+                        editor.apply();
+                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        startActivity(intent);
+                    }
+                });
+
+                iv_bomberos.setOnClickListener(new ImageView.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SharedPreferences tipo_alarma = getSharedPreferences("alarma", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = tipo_alarma.edit();
+                        editor.putString("tipoAlarma", "Bomberos");
+                        editor.apply();
+                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        startActivity(intent);
+                    }
+                });
+
+                iv_mascotas.setOnClickListener(new ImageView.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SharedPreferences tipo_alarma = getSharedPreferences("alarma", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = tipo_alarma.edit();
+                        editor.putString("tipoAlarma", "Mascota");
+                        editor.apply();
+                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        startActivity(intent);
+                    }
+                });
+
+                iv_seguridad.setOnClickListener(new ImageView.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SharedPreferences tipo_alarma = getSharedPreferences("alarma", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = tipo_alarma.edit();
+                        editor.putString("tipoAlarma", "Seguridad");
+                        editor.apply();
+                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        startActivity(intent);
+                    }
+                });
+
+
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }
                 });
-                AlertDialog alerta = builder.create();
-                alerta.show();
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         });
 
@@ -75,6 +152,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         estadoInternet();
 
     }
+
+
+
 
     private void estadoInternet (){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

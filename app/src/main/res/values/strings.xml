@@ -48,4 +48,10 @@
     <string name="agregar_alarma">Activar</string>
     <string name="alarma_titulo">Alarma</string>
     <string name="desactivar_alarma">Desactivar</string>
+    <string name="todo">TODO</string>
+    <string name="alerta_medica">Alerta medica</string>
+    <string name="vehiculo_robado">Vehiculo robado</string>
+    <string name="mascota_perdida">Mascota perdida</string>
+    <string name="incendio">Incendio</string>
+    <string name="seguridad">Seguridad</string>
 </resources>

@@ -58,8 +58,6 @@ public class iniciarSesion extends AppCompatActivity {
         }
     }
 
-
-
     private void cargarPreferencias() {
 
         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -94,10 +92,8 @@ public class iniciarSesion extends AppCompatActivity {
                     editTextCorreo.setError(null);
                     if (correoAdmin.equals(admin.getCorreo()) && passAdmin.equals
                             (admin.getPassword())){
-                        Intent intentAdmin = new Intent(iniciarSesion.
-                                this, com.example.mivecindarionuevo.administrador.inicioAdmin.class);
-                        SharedPreferences preferencias = getSharedPreferences(
-                                "sesion", Context.MODE_PRIVATE);
+                        Intent intentAdmin = new Intent(iniciarSesion.this, com.example.mivecindarionuevo.administrador.inicioAdmin.class);
+                        SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferencias.edit();
                         editor.putString("nombreAdmin", admin.getNombre());
                         editor.putString("apellidoAdmin",admin.getApellido());
