@@ -4,12 +4,20 @@ public class Alarma {
 
     private String uid;
     private String suceso;
-    private Boolean estado;
     private String tipo;
     private Usuario usuario;
+    private Hogar hogar;
 
     public Alarma (){
 
+    }
+
+    public Hogar getHogar() {
+        return hogar;
+    }
+
+    public void setHogar(Hogar hogar) {
+        this.hogar = hogar;
     }
 
     public String getUid() {
@@ -26,14 +34,6 @@ public class Alarma {
 
     public void setSuceso(String suceso) {
         this.suceso = suceso;
-    }
-
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
     }
 
     public String getTipo() {

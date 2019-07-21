@@ -215,6 +215,7 @@ public class ingresarEvento extends AppCompatActivity {
                     limpiarCajas();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

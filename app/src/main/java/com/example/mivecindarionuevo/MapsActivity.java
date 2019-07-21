@@ -74,6 +74,15 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 iv_mascotas = alerta.findViewById(R.id.iv_mascotas);
                 iv_seguridad = alerta.findViewById(R.id.iv_seguridad);
 
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+
                 iv_ambulancia.setOnClickListener(new ImageView.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -83,6 +92,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         editor.apply();
                         Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
                         startActivity(intent);
+                        dialog.cancel();
                     }
                 });
 
@@ -95,6 +105,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         editor.apply();
                         Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
                         startActivity(intent);
+                        dialog.cancel();
                     }
                 });
 
@@ -107,6 +118,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         editor.apply();
                         Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
                         startActivity(intent);
+                        dialog.cancel();
                     }
                 });
 
@@ -119,6 +131,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         editor.apply();
                         Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
                         startActivity(intent);
+                        dialog.cancel();
                     }
                 });
 
@@ -131,18 +144,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         editor.apply();
                         Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
                         startActivity(intent);
+                        dialog.cancel();
                     }
                 });
-
-
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
 
             }
         });
@@ -225,9 +229,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         googleMap.setMinZoomPreference(17.0f);
         agregarMarcadores(googleMap);
         // Add a marker in Sydney and move the camera
-    }
-
-    // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
+    } // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
 
 
     public void agregarMarcadores(GoogleMap googleMap){
@@ -280,7 +282,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
             }
         });
-
 
 
     } // Metodo que crea los marcadores de los hogares del vecindario

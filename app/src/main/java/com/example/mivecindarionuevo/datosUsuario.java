@@ -38,7 +38,6 @@ public class datosUsuario extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    ValueEventListener valueEventListener;
 
 
     @Override
