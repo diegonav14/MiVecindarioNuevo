@@ -87,7 +87,7 @@
         android:layout_marginBottom="8dp"
         android:onClick="miHogar"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_casita"
+        android:src="@drawable/house"
         android:theme="@style/AlertDialog.AppCompat.Light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

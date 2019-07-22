@@ -102,7 +102,7 @@ public class MapsActivityAdmin extends FragmentActivity implements OnMapReadyCal
                         mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                 (h.getComentario()+" "+h.getDireccion()+" "+h.getNombre()).
                                 icon(BitmapDescriptorFactory.fromResource(R.drawable.
-                                        ic_casmarket_round)));
+                                        ic_casa_round)));
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
                     }
                 }

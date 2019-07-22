@@ -92,6 +92,8 @@ public class ingresarAlarma extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+
                 switch (tipoAlarma){
 
                     case "Vehiculo":
@@ -102,6 +104,7 @@ public class ingresarAlarma extends AppCompatActivity {
 
                                 String suceso = et_suceso.getText().toString();
                                 String hogar = spHogar.getSelectedItem().toString();
+
 
                                 Date c = Calendar.getInstance().getTime();
                                 SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -117,8 +120,10 @@ public class ingresarAlarma extends AppCompatActivity {
                                     a.setFecha(fecha);
                                     a.setTipo(tipoAlarma);
                                     a.setUsuario(usuarioActual);
+
                                     for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                                         Hogar h = objSnapshot.getValue(Hogar.class);
+
                                         if (h.getNombre().equals(hogar)){
                                             a.setHogar(h);
                                         }
@@ -156,6 +161,7 @@ public class ingresarAlarma extends AppCompatActivity {
 
                                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                                     Hogar h = objSnapshot.getValue(Hogar.class);
+
                                     if (h.getNombre().equals(hogar)){
                                         a.setHogar(h);
                                     }
@@ -193,6 +199,7 @@ public class ingresarAlarma extends AppCompatActivity {
 
                                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                                     Hogar h = objSnapshot.getValue(Hogar.class);
+
                                     if (h.getNombre().equals(hogar)){
                                         a.setHogar(h);
                                     }
@@ -230,6 +237,7 @@ public class ingresarAlarma extends AppCompatActivity {
 
                                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                                     Hogar h = objSnapshot.getValue(Hogar.class);
+
                                     if (h.getNombre().equals(hogar)){
                                         a.setHogar(h);
                                     }
@@ -267,6 +275,7 @@ public class ingresarAlarma extends AppCompatActivity {
 
                                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                                     Hogar h = objSnapshot.getValue(Hogar.class);
+
                                     if (h.getNombre().equals(hogar)){
                                         a.setHogar(h);
                                     }

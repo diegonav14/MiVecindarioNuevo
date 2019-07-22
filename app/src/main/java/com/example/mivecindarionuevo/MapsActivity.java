@@ -25,6 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     String nmUsuario, apUsuario;
 
+    Marker marcadorAlarma;
 
     Usuario usuarioActual;
 
@@ -162,7 +164,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     }
 
-
     private void estadoInternet (){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -228,10 +229,13 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.setMinZoomPreference(17.0f);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setMinZoomPreference(17.0f);
         agregarMarcadores(googleMap);
         agregarAlarmas(googleMap);
+
+        mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
+
         // Add a marker in Sydney and move the camera
     } // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
 
@@ -265,17 +269,31 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         double latitud = Double.parseDouble(h.getLatitud());
                         double longitud = Double.parseDouble(h.getLongitud());
                         LatLng padreHurtado = new LatLng(latitud,longitud);
-                        if (usuarioActual.getHogar().getAlarma()){
-                            mMap.addMarker(new MarkerOptions().position(padreHurtado).title
-                                    (h.getComentario()+" "+h.getDireccion()+" "+h.getNombre())
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_alarma_round)));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
-                        }else{
-                            mMap.addMarker(new MarkerOptions().position(padreHurtado).title
-                                    (h.getComentario()+" "+h.getDireccion()+" "+h.getNombre())
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casmarket_round)));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
-                        }
+                        marcadorAlarma =  mMap.addMarker(new MarkerOptions().position(padreHurtado)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casa_round)));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+
+                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marcador) {
+                                marcador = marcadorAlarma;
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                                LayoutInflater alarma_alerta = LayoutInflater.from(MapsActivity.this);
+                                final View alerta = alarma_alerta.inflate(R.layout.alerta_alarmas,null);
+                                builder.setView(alerta);
+                                builder.setTitle("Seleccione a");
+
+                                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+
+
+                                return false;
+                            }
+                        });
 
                     }
                 }
@@ -310,6 +328,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             }
         });
 
+
+
         databaseReference.child("Alarma").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -320,6 +340,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                 for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                     Alarma a = objSnapshot.getValue(Alarma.class);
+
                     if (a.getFecha().equals(fecha)){
 
                         String tipoAlarma = a.getTipo();
@@ -334,7 +355,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                                 mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                         (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.auto)));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_auto_round)).anchor(1,2));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
                                 break;
@@ -343,7 +364,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                                 mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                         (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ambulancia)));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ambulancia_round)).anchor(1,2));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
                                 break;
@@ -352,7 +373,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                                 mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                         (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.bomberos)));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bomberos_round)).anchor(1,2));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
                                 break;
@@ -361,7 +382,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                                 mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                         (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.mascota)));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_mascota_round)).anchor(1,2));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
                                 break;
@@ -370,13 +391,13 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                                 mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                         (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_alarmarobo_fg)).rotation(5));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_seguridad_round)).anchor(1, 2));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
                                 break;
 
                         }
-                    }else{
+                    }else if(a.getFecha() != fecha ){
                         databaseReference.child("Alarma").child(a.getUid()).removeValue();
                     }
                 }
@@ -390,4 +411,15 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
 
     } // Metodo que crea los marcadores de los hogares del vecindario
+
+    public boolean OnMarkerClick (Marker marcador){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+        LayoutInflater alarma_alerta = LayoutInflater.from(MapsActivity.this);
+        final View alerta = alarma_alerta.inflate(R.layout.alerta_alarmas,null);
+        builder.setView(alerta);
+        builder.setTitle("Seleccione alarma");
+
+        return true;
+    }
 }
