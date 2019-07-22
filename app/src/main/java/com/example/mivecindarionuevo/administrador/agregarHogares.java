@@ -186,7 +186,6 @@ public class agregarHogares extends AppCompatActivity {
                             h.setComentario(comentario);
                             h.setLatitud(latitud);
                             h.setLongitud(longitud);
-                            h.setAlarma(false);
                             for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                                 Vecindario v = objSnapshot.getValue(Vecindario.class);
                                 if (vecindario.equals(v.getNombre())){
@@ -223,7 +222,6 @@ public class agregarHogares extends AppCompatActivity {
                         h.setComentario(comHogar.getText().toString().trim());
                         h.setLatitud(latitudHogar.getText().toString().trim());
                         h.setLongitud(longitudHogar.getText().toString().trim());
-                        h.setAlarma(false);
                         for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                             Vecindario v = objSnapshot.getValue(Vecindario.class);
                             if (spinnerVecindario.getSelectedItem().toString().equals(v.getNombre().trim())){

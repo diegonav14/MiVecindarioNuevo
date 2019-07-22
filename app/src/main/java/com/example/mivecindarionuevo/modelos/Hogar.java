@@ -8,7 +8,6 @@ public class Hogar {
     private String comentario;
     private String latitud;
     private String longitud;
-    private Boolean alarma;
     private Vecindario vecindario;
 
     public Hogar (){
@@ -36,14 +35,6 @@ public class Hogar {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public Boolean getAlarma() {
-        return alarma;
-    }
-
-    public void setAlarma(Boolean alarma) {
-        this.alarma = alarma;
     }
 
     public String getComentario() {

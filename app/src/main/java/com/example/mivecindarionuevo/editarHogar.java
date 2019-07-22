@@ -118,7 +118,6 @@ public class editarHogar extends AppCompatActivity {
                             h.setDireccion(direccion);
                             h.setComentario(comentario);
                             h.setUid(hogarUsuario);
-                            h.setAlarma(null);
                             h.setLatitud(u.getHogar().getLatitud());
                             h.setLongitud(u.getHogar().getLongitud());
                             h.setVecindario(u.getHogar().getVecindario());

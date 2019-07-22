@@ -120,14 +120,13 @@ public class ingresarAlarma extends AppCompatActivity {
                                     a.setFecha(fecha);
                                     a.setTipo(tipoAlarma);
                                     a.setUsuario(usuarioActual);
-
                                     for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                                         Hogar h = objSnapshot.getValue(Hogar.class);
-
                                         if (h.getNombre().equals(hogar)){
                                             a.setHogar(h);
                                         }
                                     }
+
                                     databaseReference.child("Alarma").child(a.getUid()).setValue(a);
                                     Toast.makeText(ingresarAlarma.this, "Alarma agregada", Toast.LENGTH_LONG).show();
                                     finish();

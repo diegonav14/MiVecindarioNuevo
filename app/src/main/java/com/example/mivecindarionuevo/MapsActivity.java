@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -37,7 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MapsActivity extends FragmentActivity implements  OnMapReadyCallback  {
+public class MapsActivity extends FragmentActivity implements  OnMapReadyCallback {
 
     GoogleMap mMap;
 
@@ -49,6 +50,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     ImageView iv_seguridad, iv_bomberos, iv_mascotas, iv_ambulancia, iv_auto;
 
     String nmUsuario, apUsuario;
+
+    TextView txt_nombreMarcador, txt_direccionMarcador, txt_comentarioMarcador;
 
     Marker marcadorAlarma;
 
@@ -71,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                 LayoutInflater alarma_alerta = LayoutInflater.from(MapsActivity.this);
-                final View alerta = alarma_alerta.inflate(R.layout.alerta_alarmas,null);
+                final View alerta = alarma_alerta.inflate(R.layout.alerta_alarmas, null);
                 builder.setView(alerta);
                 builder.setTitle("Seleccione alarma");
 
@@ -97,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         SharedPreferences.Editor editor = tipo_alarma.edit();
                         editor.putString("tipoAlarma", "Ambulancia");
                         editor.apply();
-                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        Intent intent = new Intent(MapsActivity.this, ingresarAlarma.class);
                         startActivity(intent);
                         dialog.cancel();
                     }
@@ -110,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         SharedPreferences.Editor editor = tipo_alarma.edit();
                         editor.putString("tipoAlarma", "Vehiculo");
                         editor.apply();
-                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        Intent intent = new Intent(MapsActivity.this, ingresarAlarma.class);
                         startActivity(intent);
                         dialog.cancel();
                     }
@@ -123,7 +126,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         SharedPreferences.Editor editor = tipo_alarma.edit();
                         editor.putString("tipoAlarma", "Bomberos");
                         editor.apply();
-                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        Intent intent = new Intent(MapsActivity.this, ingresarAlarma.class);
                         startActivity(intent);
                         dialog.cancel();
                     }
@@ -136,7 +139,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         SharedPreferences.Editor editor = tipo_alarma.edit();
                         editor.putString("tipoAlarma", "Mascota");
                         editor.apply();
-                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        Intent intent = new Intent(MapsActivity.this, ingresarAlarma.class);
                         startActivity(intent);
                         dialog.cancel();
                     }
@@ -149,7 +152,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         SharedPreferences.Editor editor = tipo_alarma.edit();
                         editor.putString("tipoAlarma", "Seguridad");
                         editor.apply();
-                        Intent intent = new Intent(MapsActivity.this,ingresarAlarma.class);
+                        Intent intent = new Intent(MapsActivity.this, ingresarAlarma.class);
                         startActivity(intent);
                         dialog.cancel();
                     }
@@ -164,7 +167,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     }
 
-    private void estadoInternet (){
+    private void estadoInternet() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -184,34 +187,34 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     private void cargarPreferencias() {
         SharedPreferences preferencias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
-        nmUsuario = preferencias.getString("nombreUsuario","NoSesion");
-        apUsuario = preferencias.getString("apellidoUsuario","NoSesion");
+        nmUsuario = preferencias.getString("nombreUsuario", "NoSesion");
+        apUsuario = preferencias.getString("apellidoUsuario", "NoSesion");
     } // Carga la sesion del usuario
 
-    public void ingresarEvento (View v){
-        Intent intent = new Intent(this,ingresarEvento.class);
+    public void ingresarEvento(View v) {
+        Intent intent = new Intent(this, ingresarEvento.class);
         startActivity(intent);
 
     } // Inicia la vista (Activity) Ingresar evento
 
-    public void misDatos (View v){
-        Intent intent = new Intent(this,datosUsuario.class);
+    public void misDatos(View v) {
+        Intent intent = new Intent(this, datosUsuario.class);
         startActivity(intent);
 
     } // Inicia la vista (Activity) Datos usuario
 
-    public void miHogar (View v){
-        Intent intent = new Intent(this,editarHogar.class);
+    public void miHogar(View v) {
+        Intent intent = new Intent(this, editarHogar.class);
         startActivity(intent);
 
     } // Inicia la vista (Activity) Editar hogar
 
-    public void cerrarSesion (View v){
+    public void cerrarSesion(View v) {
         SharedPreferences preferecias = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferecias.edit();
         editor.clear();
         editor.apply();
-        Intent intent = new Intent(this,iniciarSesion.class);
+        Intent intent = new Intent(this, iniciarSesion.class);
         startActivity(intent);
         finish();
     } // Cerrar sesion del usuario
@@ -234,27 +237,27 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         agregarMarcadores(googleMap);
         agregarAlarmas(googleMap);
 
-        mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
 
         // Add a marker in Sydney and move the camera
     } // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
 
 
-    public void agregarMarcadores(GoogleMap googleMap){
+    public void agregarMarcadores(final GoogleMap googleMap) {
 
         mMap = googleMap;
 
         databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
                     Usuario u = objSnapshot.getValue(Usuario.class);
-                    if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)){
+                    if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)) {
                         usuarioActual = u;
                     }
                 }
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -263,37 +266,46 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
-                    Hogar h = objSnapshot.getValue(Hogar.class);
-                    if (usuarioActual.getHogar().getVecindario().getNombre().equals(h.getVecindario().getNombre())){
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                    final Hogar h = objSnapshot.getValue(Hogar.class);
+                    if (usuarioActual.getHogar().getVecindario().getNombre().equals(h.getVecindario().getNombre())) {
                         double latitud = Double.parseDouble(h.getLatitud());
                         double longitud = Double.parseDouble(h.getLongitud());
-                        LatLng padreHurtado = new LatLng(latitud,longitud);
-                        marcadorAlarma =  mMap.addMarker(new MarkerOptions().position(padreHurtado)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casa_round)));
+                        LatLng padreHurtado = new LatLng(latitud, longitud);
+                        marcadorAlarma = mMap.addMarker(new MarkerOptions().position(padreHurtado)
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casa_round)));
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
-                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                            @Override
-                            public boolean onMarkerClick(Marker marcador) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                        LayoutInflater alertaMarcador = LayoutInflater.from(MapsActivity.this);
+                        final View alerta = alertaMarcador.inflate(R.layout.alerta_marcador, null);
+                        builder.setView(alerta);
+                        builder.setTitle(h.getNombre());
 
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-                                LayoutInflater alarma_alerta = LayoutInflater.from(MapsActivity.this);
-                                final View alerta = alarma_alerta.inflate(R.layout.alerta_alarmas,null);
-                                builder.setView(alerta);
-                                builder.setTitle("Seleccione a");
+                        txt_nombreMarcador = alerta.findViewById(R.id.txt_marcadorNombre);
+                        txt_comentarioMarcador = alerta.findViewById(R.id.txt_marcadorComentario);
+                        txt_direccionMarcador = alerta.findViewById(R.id.txt_marcadorDireccion);
 
-                                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
+                        txt_direccionMarcador.setText(h.getDireccion());
+                        txt_comentarioMarcador.setText(h.getComentario());
+                        txt_nombreMarcador.setText(h.getNombre());
 
-                                    }
-                                });
+                        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
 
-
-                                return false;
                             }
                         });
 
+                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker) {
+
+                                if (marker.equals(marcadorAlarma)) {
+                                    builder.show();
+                                }
+                                return false;
+                            }
+                        });
                     }
                 }
             }
@@ -307,26 +319,26 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     } // Metodo que crea los marcadores de los hogares del vecindario
 
-    public void agregarAlarmas(GoogleMap googleMap){
+    public void agregarAlarmas(GoogleMap googleMap) {
 
         mMap = googleMap;
 
         databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
                     Usuario u = objSnapshot.getValue(Usuario.class);
-                    if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)){
+                    if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)) {
                         usuarioActual = u;
                     }
                 }
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
 
 
         databaseReference.child("Alarma").addValueEventListener(new ValueEventListener() {
@@ -337,24 +349,24 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                 String fecha = df.format(c);
 
-                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
                     Alarma a = objSnapshot.getValue(Alarma.class);
 
-                    if (a.getFecha().equals(fecha)){
+                    if (a.getFecha().equals(fecha)) {
 
                         String tipoAlarma = a.getTipo();
 
                         double latitud = Double.parseDouble(a.getHogar().getLatitud());
                         double longitud = Double.parseDouble(a.getHogar().getLongitud());
 
-                        LatLng padreHurtado = new LatLng(latitud,longitud);
+                        LatLng padreHurtado = new LatLng(latitud, longitud);
 
-                        switch (tipoAlarma){
+                        switch (tipoAlarma) {
                             case "Vehiculo":
 
                                 mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                         (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_auto_round)).anchor(1,2));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_auto_round)).anchor(1, 2));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
                                 break;
@@ -363,7 +375,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                                 mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                         (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ambulancia_round)).anchor(1,2));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ambulancia_round)).anchor(1, 2));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
                                 break;
@@ -372,7 +384,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                                 mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                         (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bomberos_round)).anchor(1,2));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bomberos_round)).anchor(1, 2));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
                                 break;
@@ -381,7 +393,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                                 mMap.addMarker(new MarkerOptions().position(padreHurtado).title
                                         (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_mascota_round)).anchor(1,2));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_mascota_round)).anchor(1, 2));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
                                 break;
@@ -396,7 +408,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                 break;
 
                         }
-                    }else if(a.getFecha() != fecha ){
+                    } else if (a.getFecha() != fecha) {
                         databaseReference.child("Alarma").child(a.getUid()).removeValue();
                     }
                 }
@@ -410,15 +422,5 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
 
     } // Metodo que crea los marcadores de los hogares del vecindario
-
-    public boolean OnMarkerClick (Marker marcador){
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-        LayoutInflater alarma_alerta = LayoutInflater.from(MapsActivity.this);
-        final View alerta = alarma_alerta.inflate(R.layout.alerta_alarmas,null);
-        builder.setView(alerta);
-        builder.setTitle("Seleccione alarma");
-
-        return true;
-    }
 }
+

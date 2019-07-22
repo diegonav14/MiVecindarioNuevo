@@ -84,7 +84,6 @@ public class datosUsuario extends AppCompatActivity {
                                 h.setNombre(u.getHogar().getNombre());
                                 h.setComentario(u.getHogar().getComentario());
                                 h.setUid(hogarUsuario);
-                                h.setAlarma(false);
                                 h.setLatitud(u.getHogar().getLatitud());
                                 h.setLongitud(u.getHogar().getLongitud());
                                 h.setVecindario(u.getHogar().getVecindario());
@@ -126,7 +125,6 @@ public class datosUsuario extends AppCompatActivity {
                                 h.setDireccion(u.getHogar().getDireccion());
                                 h.setComentario(u.getHogar().getComentario());
                                 h.setUid(hogarUsuario);
-                                h.setAlarma(true);
                                 h.setLatitud(u.getHogar().getLatitud());
                                 h.setLongitud(u.getHogar().getLongitud());
                                 h.setVecindario(u.getHogar().getVecindario());
