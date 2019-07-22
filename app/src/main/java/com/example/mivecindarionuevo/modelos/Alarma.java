@@ -5,11 +5,20 @@ public class Alarma {
     private String uid;
     private String suceso;
     private String tipo;
+    private String fecha;
     private Usuario usuario;
     private Hogar hogar;
 
     public Alarma (){
 
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public Hogar getHogar() {

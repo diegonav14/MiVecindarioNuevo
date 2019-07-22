@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.mivecindarionuevo.modelos.Alarma;
 import com.example.mivecindarionuevo.modelos.Hogar;
 import com.example.mivecindarionuevo.modelos.Usuario;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,6 +31,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MapsActivity extends FragmentActivity implements  OnMapReadyCallback  {
 
@@ -158,8 +163,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     }
 
 
-
-
     private void estadoInternet (){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -228,6 +231,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         googleMap.setMinZoomPreference(17.0f);
         agregarMarcadores(googleMap);
+        agregarAlarmas(googleMap);
         // Add a marker in Sydney and move the camera
     } // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
 
@@ -286,4 +290,104 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     } // Metodo que crea los marcadores de los hogares del vecindario
 
+    public void agregarAlarmas(GoogleMap googleMap){
+
+        mMap = googleMap;
+
+        databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                    Usuario u = objSnapshot.getValue(Usuario.class);
+                    if (u.getNombre().equals(nmUsuario) && u.getApellido().equals(apUsuario)){
+                        usuarioActual = u;
+                    }
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        databaseReference.child("Alarma").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                String fecha = df.format(c);
+
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                    Alarma a = objSnapshot.getValue(Alarma.class);
+                    if (a.getFecha().equals(fecha)){
+
+                        String tipoAlarma = a.getTipo();
+
+                        double latitud = Double.parseDouble(a.getHogar().getLatitud());
+                        double longitud = Double.parseDouble(a.getHogar().getLongitud());
+
+                        LatLng padreHurtado = new LatLng(latitud,longitud);
+
+                        switch (tipoAlarma){
+                            case "Vehiculo":
+
+                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
+                                        (a.getTipo())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.auto)));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+
+                                break;
+
+                            case "Ambulancia":
+
+                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
+                                        (a.getTipo())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ambulancia)));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+
+                                break;
+
+                            case "Bomberos":
+
+                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
+                                        (a.getTipo())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.bomberos)));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+
+                                break;
+
+                            case "Mascota":
+
+                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
+                                        (a.getTipo())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.mascota)));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+
+                                break;
+
+                            case "Seguridad":
+
+                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
+                                        (a.getTipo())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_alarmarobo_fg)).rotation(5));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+
+                                break;
+
+                        }
+                    }else{
+                        databaseReference.child("Alarma").child(a.getUid()).removeValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    } // Metodo que crea los marcadores de los hogares del vecindario
 }

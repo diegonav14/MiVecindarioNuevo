@@ -30,7 +30,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -100,6 +103,10 @@ public class ingresarAlarma extends AppCompatActivity {
                                 String suceso = et_suceso.getText().toString();
                                 String hogar = spHogar.getSelectedItem().toString();
 
+                                Date c = Calendar.getInstance().getTime();
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                String fecha = df.format(c);
+
                                 if (suceso.equals("") || hogar.equals("Seleccione el hogar de la emergencia")){
                                     validacion();
                                 }
@@ -107,6 +114,7 @@ public class ingresarAlarma extends AppCompatActivity {
                                     Alarma a = new Alarma();
                                     a.setUid(UUID.randomUUID().toString());
                                     a.setSuceso(suceso);
+                                    a.setFecha(fecha);
                                     a.setTipo(tipoAlarma);
                                     a.setUsuario(usuarioActual);
                                     for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
@@ -134,9 +142,15 @@ public class ingresarAlarma extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String suceso = et_suceso.getText().toString();
                                 String hogar = spHogar.getSelectedItem().toString();
+
+                                Date c = Calendar.getInstance().getTime();
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                String fecha = df.format(c);
+
                                 Alarma a = new Alarma();
                                 a.setUid(UUID.randomUUID().toString());
                                 a.setSuceso(suceso);
+                                a.setFecha(fecha);
                                 a.setTipo(tipoAlarma);
                                 a.setUsuario(usuarioActual);
 
@@ -165,9 +179,15 @@ public class ingresarAlarma extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String suceso = et_suceso.getText().toString();
                                 String hogar = spHogar.getSelectedItem().toString();
+
+                                Date c = Calendar.getInstance().getTime();
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                String fecha = df.format(c);
+
                                 Alarma a = new Alarma();
                                 a.setUid(UUID.randomUUID().toString());
                                 a.setSuceso(suceso);
+                                a.setFecha(fecha);
                                 a.setTipo(tipoAlarma);
                                 a.setUsuario(usuarioActual);
 
@@ -196,9 +216,15 @@ public class ingresarAlarma extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String suceso = et_suceso.getText().toString();
                                 String hogar = spHogar.getSelectedItem().toString();
+
+                                Date c = Calendar.getInstance().getTime();
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                String fecha = df.format(c);
+
                                 Alarma a = new Alarma();
                                 a.setUid(UUID.randomUUID().toString());
                                 a.setSuceso(suceso);
+                                a.setFecha(fecha);
                                 a.setTipo(tipoAlarma);
                                 a.setUsuario(usuarioActual);
 
@@ -227,9 +253,15 @@ public class ingresarAlarma extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String suceso = et_suceso.getText().toString();
                                 String hogar = spHogar.getSelectedItem().toString();
+
+                                Date c = Calendar.getInstance().getTime();
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                String fecha = df.format(c);
+
                                 Alarma a = new Alarma();
                                 a.setUid(UUID.randomUUID().toString());
                                 a.setSuceso(suceso);
+                                a.setFecha(fecha);
                                 a.setTipo(tipoAlarma);
                                 a.setUsuario(usuarioActual);
 
