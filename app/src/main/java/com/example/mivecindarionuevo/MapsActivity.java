@@ -53,9 +53,10 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     TextView txt_nombreMarcador, txt_direccionMarcador, txt_comentarioMarcador;
 
-    Marker marcadorAlarma;
 
     Usuario usuarioActual;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,6 +239,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         agregarAlarmas(googleMap);
 
 
+
         // Add a marker in Sydney and move the camera
     } // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
 
@@ -265,47 +267,57 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
         databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                for (final DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
                     final Hogar h = objSnapshot.getValue(Hogar.class);
                     if (usuarioActual.getHogar().getVecindario().getNombre().equals(h.getVecindario().getNombre())) {
                         double latitud = Double.parseDouble(h.getLatitud());
                         double longitud = Double.parseDouble(h.getLongitud());
                         LatLng padreHurtado = new LatLng(latitud, longitud);
-                        marcadorAlarma = mMap.addMarker(new MarkerOptions().position(padreHurtado)
+                        final Marker marcadorAlarma = mMap.addMarker(new MarkerOptions().position(padreHurtado)
+                                .title(h.getNombre())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casa_round)));
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
-
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-                        LayoutInflater alertaMarcador = LayoutInflater.from(MapsActivity.this);
-                        final View alerta = alertaMarcador.inflate(R.layout.alerta_marcador, null);
-                        builder.setView(alerta);
-                        builder.setTitle(h.getNombre());
-
-                        txt_nombreMarcador = alerta.findViewById(R.id.txt_marcadorNombre);
-                        txt_comentarioMarcador = alerta.findViewById(R.id.txt_marcadorComentario);
-                        txt_direccionMarcador = alerta.findViewById(R.id.txt_marcadorDireccion);
-
-                        txt_direccionMarcador.setText(h.getDireccion());
-                        txt_comentarioMarcador.setText(h.getComentario());
-                        txt_nombreMarcador.setText(h.getNombre());
-
-                        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                            }
-                        });
 
                         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                             @Override
                             public boolean onMarkerClick(Marker marker) {
 
-                                if (marker.equals(marcadorAlarma)) {
-                                    builder.show();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                                LayoutInflater alertaMarcador = LayoutInflater.from(MapsActivity.this);
+                                final View alerta = alertaMarcador.inflate(R.layout.alerta_marcador, null);
+                                builder.setView(alerta);
+
+                                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                                    final Hogar h = objSnapshot.getValue(Hogar.class);
+                                    if (marker.getTitle().equals(h.getNombre())){
+
+                                        txt_nombreMarcador = alerta.findViewById(R.id.txt_marcadorNombre);
+                                        txt_comentarioMarcador = alerta.findViewById(R.id.txt_marcadorComentario);
+                                        txt_direccionMarcador = alerta.findViewById(R.id.txt_marcadorDireccion);
+
+                                        txt_direccionMarcador.setText(h.getDireccion());
+                                        txt_comentarioMarcador.setText(h.getComentario());
+                                        txt_nombreMarcador.setText(h.getNombre());
+
+                                        builder.setTitle(h.getNombre());
+
+                                        builder.create();
+
+                                        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+
+                                            }
+                                        });
+
+                                        builder.show();
+                                    }
+
                                 }
                                 return false;
                             }
                         });
+
                     }
                 }
             }
