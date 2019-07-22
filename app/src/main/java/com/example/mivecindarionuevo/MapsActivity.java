@@ -10,8 +10,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,8 +37,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements  OnMapReadyCallback {
 
@@ -45,17 +49,21 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
+    private List<Usuario> listaUsuario = new ArrayList<Usuario>();
+    ArrayAdapter<Usuario> arrayAdapterUsuario;
+
     Button btnAlarma;
 
-    ImageView iv_seguridad, iv_bomberos, iv_mascotas, iv_ambulancia, iv_auto;
+    ListView lv_Miembros;
+
+    ImageView iv_seguridad, iv_bomberos, iv_mascotas, iv_ambulancia, iv_auto, iv_imagenMarcador;
 
     String nmUsuario, apUsuario;
 
-    TextView txt_nombreMarcador, txt_direccionMarcador, txt_comentarioMarcador;
+    TextView txt_nombreMarcador, txt_direccionMarcador, txt_comentarioMarcador, txt_marcadorAlarma, txt_marcadorSuceso, txt_marcadorUsuario;
 
 
     Usuario usuarioActual;
-
 
 
     @Override
@@ -69,13 +77,14 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
         btnAlarma = findViewById(R.id.btnAlarma);
 
+
         btnAlarma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                 LayoutInflater alarma_alerta = LayoutInflater.from(MapsActivity.this);
-                final View alerta = alarma_alerta.inflate(R.layout.alerta_alarmas, null);
+                View alerta = alarma_alerta.inflate(R.layout.alerta_alarmas, null);
                 builder.setView(alerta);
                 builder.setTitle("Seleccione alarma");
 
@@ -238,13 +247,11 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         agregarMarcadores(googleMap);
         agregarAlarmas(googleMap);
 
-
-
         // Add a marker in Sydney and move the camera
     } // Metodo propio de la clase GoogleMap que se encarga de los metodos del mapa
 
 
-    public void agregarMarcadores(final GoogleMap googleMap) {
+    public void agregarMarcadores(GoogleMap googleMap) {
 
         mMap = googleMap;
 
@@ -268,56 +275,23 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         databaseReference.child("Hogar").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+
                 for (final DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
-                    final Hogar h = objSnapshot.getValue(Hogar.class);
+                    Hogar h = objSnapshot.getValue(Hogar.class);
+
                     if (usuarioActual.getHogar().getVecindario().getNombre().equals(h.getVecindario().getNombre())) {
+
                         double latitud = Double.parseDouble(h.getLatitud());
                         double longitud = Double.parseDouble(h.getLongitud());
+
                         LatLng padreHurtado = new LatLng(latitud, longitud);
-                        final Marker marcadorAlarma = mMap.addMarker(new MarkerOptions().position(padreHurtado)
+
+                        mMap.addMarker(new MarkerOptions().position(padreHurtado)
                                 .title(h.getNombre())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_casa_round)));
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
 
-                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                            @Override
-                            public boolean onMarkerClick(Marker marker) {
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-                                LayoutInflater alertaMarcador = LayoutInflater.from(MapsActivity.this);
-                                final View alerta = alertaMarcador.inflate(R.layout.alerta_marcador, null);
-                                builder.setView(alerta);
-
-                                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
-                                    final Hogar h = objSnapshot.getValue(Hogar.class);
-                                    if (marker.getTitle().equals(h.getNombre())){
-
-                                        txt_nombreMarcador = alerta.findViewById(R.id.txt_marcadorNombre);
-                                        txt_comentarioMarcador = alerta.findViewById(R.id.txt_marcadorComentario);
-                                        txt_direccionMarcador = alerta.findViewById(R.id.txt_marcadorDireccion);
-
-                                        txt_direccionMarcador.setText(h.getDireccion());
-                                        txt_comentarioMarcador.setText(h.getComentario());
-                                        txt_nombreMarcador.setText(h.getNombre());
-
-                                        builder.setTitle(h.getNombre());
-
-                                        builder.create();
-
-                                        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-
-                                            }
-                                        });
-
-                                        builder.show();
-                                    }
-
-                                }
-                                return false;
-                            }
-                        });
-
+                        marcadoresCasa();
                     }
                 }
             }
@@ -327,7 +301,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
             }
         });
-
 
     } // Metodo que crea los marcadores de los hogares del vecindario
 
@@ -355,7 +328,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
         databaseReference.child("Alarma").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
 
                 Date c = Calendar.getInstance().getTime();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -373,53 +346,49 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                         LatLng padreHurtado = new LatLng(latitud, longitud);
 
+                         Marker marcador = mMap.addMarker(new MarkerOptions().position(padreHurtado).title(a.getUid()));
+                         mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+
                         switch (tipoAlarma) {
                             case "Vehiculo":
 
-                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
-                                        (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_auto_round)).anchor(1, 2));
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                                marcador.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_auto_round));
+                                marcador.setAnchor(1,2);
 
                                 break;
 
                             case "Ambulancia":
 
-                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
-                                        (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ambulancia_round)).anchor(1, 2));
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                                marcador.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ambulancia_round));
+                                marcador.setAnchor(1,2);
 
-                                break;
+                            break;
 
                             case "Bomberos":
 
-                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
-                                        (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bomberos_round)).anchor(1, 2));
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                                marcador.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bomberos_round));
+                                marcador.setAnchor(1,2);
 
                                 break;
 
                             case "Mascota":
 
-                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
-                                        (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_mascota_round)).anchor(1, 2));
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                                marcador.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_mascota_round));
+                                marcador.setAnchor(1,2);
 
                                 break;
 
                             case "Seguridad":
 
-                                mMap.addMarker(new MarkerOptions().position(padreHurtado).title
-                                        (a.getTipo())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_seguridad_round)).anchor(1, 2));
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(padreHurtado));
+                                marcador.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_seguridad_round));
+                                marcador.setAnchor(1,2);
 
                                 break;
 
                         }
+
+                        marcadoresAlarma();
+
                     } else if (a.getFecha() != fecha) {
                         databaseReference.child("Alarma").child(a.getUid()).removeValue();
                     }
@@ -431,8 +400,162 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
             }
         });
-
-
     } // Metodo que crea los marcadores de los hogares del vecindario
-}
 
+    public void marcadoresAlarma() {
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+            @Override
+            public boolean onMarkerClick(final Marker markerAlarma) {
+
+                databaseReference.child("Alarma").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        AlertDialog.Builder builderAlarma = new AlertDialog.Builder(MapsActivity.this);
+                        LayoutInflater alertaMarcadorAlarma = LayoutInflater.from(MapsActivity.this);
+                        View alertaAlarma = alertaMarcadorAlarma.inflate(R.layout.alerta_marcador_alarma, null);
+                        builderAlarma.setView(alertaAlarma);
+
+                        for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                            Alarma a = objSnapshot.getValue(Alarma.class);
+
+                            if (markerAlarma.getTitle().equals(a.getUid())) {
+
+                                txt_marcadorAlarma = alertaAlarma.findViewById(R.id.txt_marcadorAlarma);
+                                txt_marcadorSuceso = alertaAlarma.findViewById(R.id.txt_marcadorSuceso);
+                                txt_marcadorUsuario = alertaAlarma.findViewById(R.id.txt_marcadorUsuario);
+                                iv_imagenMarcador = alertaAlarma.findViewById(R.id.iv_marcadorImagen);
+
+                                txt_marcadorAlarma.setText(a.getTipo());
+                                txt_marcadorSuceso.setText(a.getSuceso());
+                                txt_marcadorUsuario.setText(a.getUsuario().getNombre() + " " + a.getUsuario().getApellido());
+
+                                switch (a.getTipo()) {
+                                    case "Vehiculo":
+                                        iv_imagenMarcador.setBackground(getApplication().getResources().getDrawable(R.drawable.auto));
+                                        break;
+
+                                    case "Ambulancia":
+                                        iv_imagenMarcador.setBackground(getApplication().getResources().getDrawable(R.drawable.ambulancia));
+                                        break;
+
+                                    case "Bomberos":
+                                        iv_imagenMarcador.setBackground(getApplication().getResources().getDrawable(R.drawable.bomberos));
+                                        break;
+
+                                    case "Mascota":
+                                        iv_imagenMarcador.setBackground(getApplication().getResources().getDrawable(R.drawable.mascota));
+                                        break;
+
+                                    case "Seguridad":
+                                        iv_imagenMarcador.setBackground(getApplication().getResources().getDrawable(R.drawable.alarma_robo));
+                                        break;
+
+                                }
+
+                                builderAlarma.setTitle(a.getTipo());
+                                builderAlarma.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+                                markerAlarma.remove();
+                                builderAlarma.show();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                return false;
+            }
+
+        });
+
+    }
+
+    public void marcadoresCasa() {
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+            @Override
+            public boolean onMarkerClick(final Marker markerCasa) {
+
+                databaseReference.child("Alarma").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        AlertDialog.Builder builderCasa = new AlertDialog.Builder(MapsActivity.this);
+                        LayoutInflater alertaMarcador = LayoutInflater.from(MapsActivity.this);
+                        View alertaCasa = alertaMarcador.inflate(R.layout.alerta_marcador, null);
+                        builderCasa.setView(alertaCasa);
+
+                        for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                            final Hogar h = objSnapshot.getValue(Hogar.class);
+
+                            if (markerCasa.getTitle().equals(h.getNombre())) {
+
+                                lv_Miembros = alertaCasa.findViewById(R.id.lv_marcadorMiembros);
+                                txt_nombreMarcador = alertaCasa.findViewById(R.id.txt_marcadorNombre);
+                                txt_comentarioMarcador = alertaCasa.findViewById(R.id.txt_marcadorComentario);
+                                txt_direccionMarcador = alertaCasa.findViewById(R.id.txt_marcadorDireccion);
+
+                                txt_direccionMarcador.setText(h.getDireccion());
+                                txt_comentarioMarcador.setText(h.getComentario());
+                                txt_nombreMarcador.setText(h.getNombre());
+
+                                databaseReference.child("Usuario").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        listaUsuario.clear();
+                                        for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                                            Usuario u = objSnapshot.getValue(Usuario.class);
+                                            if (u.getHogar().getNombre().equals(h.getNombre()))
+                                                listaUsuario.add(u);
+                                            arrayAdapterUsuario = new ArrayAdapter<Usuario>
+                                                    (MapsActivity.this,
+                                                            android.R.layout.simple_list_item_1, listaUsuario);
+                                            lv_Miembros.setAdapter(arrayAdapterUsuario);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+
+
+
+                                });
+
+                                builderCasa.setTitle(h.getNombre());
+                                builderCasa.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+
+                            }
+                            builderCasa.show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                return false;
+            }
+
+        });
+    }
+}
