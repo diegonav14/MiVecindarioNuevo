@@ -276,7 +276,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                             @Override
                             public boolean onMarkerClick(Marker marcador) {
-                                marcador = marcadorAlarma;
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                                 LayoutInflater alarma_alerta = LayoutInflater.from(MapsActivity.this);
