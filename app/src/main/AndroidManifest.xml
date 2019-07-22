@@ -32,8 +32,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ingresarAlarma"></activity>
-        <activity android:name=".estadoInternet" />
+        <activity
+            android:name=".ingresarAlarma"
+            android:screenOrientation="landscape" />
+
+        <activity android:name=".estadoInternet"
+            android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/NOSUBIR.xml").
